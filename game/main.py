@@ -23,6 +23,7 @@ from modules.player_module import Player
 from modules.monster_module import GiantAnt, Kobold, Bear, AntQueen
 from systems.player_persistence.save_character import player_to_dict
 from systems.player_persistence.player_to_json import player_dict_to_json
+from data.maps import display_map, TEST_MAP
 
 enemies = []
 
@@ -83,6 +84,20 @@ def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_off
     update_active_effects(player, now, combat_messages)
     ny, nx = player.future_position(py, px)
     if not movement_area(stdscr, ny, nx):
+        py = 0
+        px = 0
+
+    next_y, next_x = player.future_position(py, px)
+
+    map_y = next_y - 25
+    map_x = next_x - 55
+
+    inside_map = (0 <= map_y < len(TEST_MAP) and 0 <= map_x < len(TEST_MAP[map_y]))
+
+    if not inside_map:
+        py = 0
+        px = 0
+    elif TEST_MAP[map_y][map_x] == "#":
         py = 0
         px = 0
 
@@ -164,7 +179,9 @@ def gamestart(stdscr, player):
 
     stdscr.clear()
 
-    player.position = [20, 55]
+    display_map(stdscr, player, TEST_MAP, 25, 55)
+
+    player.position = [26, 56]
 
     # Window rendering
 

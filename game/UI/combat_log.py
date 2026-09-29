@@ -49,11 +49,14 @@ def handle_scroll_log(inner, mx, my, bstate, scroll_offset, combat_messages, log
     scroll_log_y, scroll_log_x = inner.getbegyx()
     scroll_log_h, scroll_log_w = inner.getmaxyx()
 
+    wheel_up = getattr(curses, "BUTTON4_PRESSED", 65536)
+    wheel_down = getattr(curses, "BUTTON5_PRESSED", 2097152)
+
     if scroll_log_y <= my < scroll_log_y + scroll_log_h and scroll_log_x <= mx < scroll_log_x + scroll_log_w:
 
-        if bstate & curses.BUTTON4_PRESSED:
+        if wheel_up and (bstate & wheel_up):
             scroll_offset += 1
-        elif bstate & curses.BUTTON5_PRESSED:
+        elif wheel_down and (bstate & wheel_down):
             scroll_offset = max(0, scroll_offset - 1)
 
         max_scroll = max(0, len(combat_messages) - log_height)

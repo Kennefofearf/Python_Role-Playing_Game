@@ -150,10 +150,13 @@ def open_skill_tree(stdscr, selected_item, player):
         elif key == curses.KEY_MOUSE:
             _, mx, my, _, bstate, = curses.getmouse()
 
-            if bstate & curses.BUTTON4_PRESSED:
+            wheel_up = getattr(curses, "BUTTON4_PRESSED", 65536)
+            wheel_down = getattr(curses, "BUTTON5_PRESSED", 2097152)
+
+            if wheel_up and (bstate & wheel_up):
                 scroll_y = max(0, scroll_y - 2)
 
-            elif bstate & curses.BUTTON5_PRESSED:
+            elif wheel_down and (bstate & wheel_down):
                 scroll_y += 2
 
             elif bstate & curses.BUTTON1_CLICKED:

@@ -1,5 +1,6 @@
 import curses
 import time
+import os
 from UI.title_screen import title_screen
 from systems.combat.ability_logic import use_ability, update_active_effects
 from curses import wrapper
@@ -29,6 +30,11 @@ ABILITY_KEYS = {ord("1"): "1", ord("2"): "2", ord("3"): "3", ord("4"): "4"}
 
 MIN_HEIGHT = 30
 MIN_WIDTH = 120
+
+DEFAULT_HEIGHT = 60
+DEFAULT_WIDTH = 150
+
+os.system(f"mode con: cols={DEFAULT_WIDTH} lines={DEFAULT_HEIGHT}")
 
 for enemy in [GiantAnt, Kobold, Bear]:
     for _ in range(3):

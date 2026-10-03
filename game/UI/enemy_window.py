@@ -1,6 +1,7 @@
 import curses
 from UI.colors import RED
 
+
 def create_enemy_window(stdscr):
     screen_h, screen_w = stdscr.getmaxyx()
 

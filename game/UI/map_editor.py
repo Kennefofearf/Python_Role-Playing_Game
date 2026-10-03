@@ -22,3 +22,17 @@ def map_editor(stdscr, game_map):
             stdscr.clear()
             stdscr.refresh()
             break
+
+        if key == ord("w"):
+            cursor_y -= 1
+
+        elif key == ord("a"):
+            cursor_x += 1
+
+        elif key == ord("s"):
+            cursor_y += 1
+
+        elif key == ord("d"):
+            cursor_x -= 1
+
+        stdscr.refresh()

@@ -1,3 +1,5 @@
+import curses
+
 from systems.maps.map_system import display_map
 
 
@@ -10,9 +12,9 @@ def map_editor(stdscr, game_map):
 
         screen_y, screen_x = stdscr.getmaxyx()
 
-        display_map(stdscr, game_map, cursor_y, cursor_x)
+        display_map(stdscr, game_map, 1, 1)
 
-        game_map[cursor_y][cursor_x] = "_"
+        stdscr.addch(1 + cursor_y, 1 + cursor_x, game_map[cursor_y][cursor_x], curses.A_REVERSE)
 
         stdscr.refresh()
 
@@ -24,15 +26,15 @@ def map_editor(stdscr, game_map):
             break
 
         if key == ord("w"):
-            cursor_y -= 1
+            cursor_y = max(0, cursor_y - 1)
 
         elif key == ord("a"):
-            cursor_x += 1
+            cursor_x = min(len(game_map), cursor_x - 1)
 
         elif key == ord("s"):
-            cursor_y += 1
+            cursor_y = min(len(game_map) - 1, cursor_y + 1)
 
         elif key == ord("d"):
-            cursor_x -= 1
+            cursor_x = min(len(game_map[cursor_y]) - 1, cursor_x + 1)
 
         stdscr.refresh()

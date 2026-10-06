@@ -183,7 +183,6 @@ def gamestart(stdscr, player):
 
     map_1 = edit_map(TEST_MAP)
 
-    display_map(stdscr, map_1, 25, 55)
 
     player.position = [26, 56]
 
@@ -209,6 +208,8 @@ def gamestart(stdscr, player):
     last_y, last_x = stdscr.getmaxyx()
 
     while True:
+        display_map(stdscr, map_1, 25, 55)
+
         y_max, x_max = stdscr.getmaxyx()
 
         if y_max < MIN_HEIGHT or x_max < MIN_WIDTH:

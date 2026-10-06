@@ -37,4 +37,7 @@ def map_editor(stdscr, game_map):
         elif key == ord("d"):
             cursor_x = min(len(game_map[cursor_y]) - 1, cursor_x + 1)
 
+        elif key == ord("1"):
+            game_map[cursor_y][cursor_x] = "#"
+
         stdscr.refresh()

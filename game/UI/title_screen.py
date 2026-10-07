@@ -8,6 +8,7 @@ def title_screen(stdscr, saved_characters):
     new_game_option = f"[A] NEW GAME"
     quit_option = f"[Q] QUIT"
     continue_option = f"[W] CONTINUE"
+    map_editor = f"[M] Map Editor"
 
     can_continue = bool(saved_characters)
 
@@ -32,6 +33,9 @@ def title_screen(stdscr, saved_characters):
         else:
             can_continue = False
 
+        stdscr.addstr(row, start_x - (len(map_editor) // 2), map_editor)
+        row += 2
+
         stdscr.addstr(row, start_x - (len(quit_option) // 2), quit_option)
 
         stdscr.refresh()
@@ -46,6 +50,9 @@ def title_screen(stdscr, saved_characters):
                 return "continue"
             else:
                 continue
+
+        elif key == ord("m"):
+            return "map_editor"
 
         elif key == ord("q"):
             return "quit"

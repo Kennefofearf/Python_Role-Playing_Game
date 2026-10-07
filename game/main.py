@@ -345,6 +345,10 @@ def main(stdscr):
             player = json_to_player(data)
             gamestart(stdscr, player)
 
+        elif choice == "map_editor":
+            game_map = [[" " for _ in range(40)] for _ in range(15)]
+            map_editor(stdscr, game_map)
+
         elif choice == "quit":
             return
 

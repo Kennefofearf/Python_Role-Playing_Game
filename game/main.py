@@ -346,7 +346,7 @@ def main(stdscr):
             gamestart(stdscr, player)
 
         elif choice == "map_editor":
-            game_map = [[" " for _ in range(40)] for _ in range(15)]
+            game_map = [["." for _ in range(40)] for _ in range(15)]
             map_editor(stdscr, game_map)
 
         elif choice == "quit":

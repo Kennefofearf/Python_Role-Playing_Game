@@ -2,11 +2,17 @@ from data.maps import TEST_MAP
 from pathlib import Path
 
 
-def display_map(stdscr, map, start_y, start_x):
+def display_map(stdscr, game_map, start_y, start_x, camera=None):
+    top = camera.y if camera else 0
+    left = camera.x if camera else 0
 
-    for y, row in enumerate(map):
-        for x, char in enumerate(row):
-            stdscr.addch(start_y + y, start_x + x, char)
+    bottom = min(len(game_map), top + camera.height) if camera else len(game_map)
+
+    for y in range(top, bottom):
+        right = min(len(game_map[y]), left + camera.width) if camera else len(game_map[y])
+
+        for x in range(left, right):
+            stdscr.addch(start_y + y - top, start_x + x - left, game_map[y][x])
 
 
 def edit_map(map):

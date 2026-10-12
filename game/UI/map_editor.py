@@ -1,5 +1,5 @@
 import curses
-from systems.maps.map_system import display_map, save_map
+from systems.maps.map_system import display_map, save_map, load_map
 from modules.camera_module import Camera
 
 

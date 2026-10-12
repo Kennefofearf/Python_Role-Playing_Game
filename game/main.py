@@ -24,7 +24,7 @@ from modules.player_module import Player
 from modules.monster_module import GiantAnt, Kobold, Bear, AntQueen
 from systems.player_persistence.save_character import player_to_dict
 from systems.player_persistence.player_to_json import player_dict_to_json
-from systems.maps.map_system import display_map, edit_map
+from systems.maps.map_system import display_map, edit_map, load_map
 from data.maps import TEST_MAP
 
 enemies = []
@@ -346,7 +346,7 @@ def main(stdscr):
             gamestart(stdscr, player)
 
         elif choice == "map_editor":
-            game_map = [["." for _ in range(40)] for _ in range(15)]
+            game_map = [["." for _ in range(1000)] for _ in range(1000)]
             map_editor(stdscr, game_map)
 
         elif choice == "quit":

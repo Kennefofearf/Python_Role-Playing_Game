@@ -35,3 +35,18 @@ def save_map(game_map, filename):
 
         for row in game_map:
             file.write("".join(row) + "\n")
+
+
+def load_map(filename):
+
+    map_dir = Path(__file__).resolve().parents[2] / "maps"
+    map_file = map_dir / filename
+
+    game_map = []
+
+    with open(map_file, "r", encoding="utf-8") as file:
+
+        for line in file:
+            game_map.append(list(line.rstrip("\n")))
+
+    return game_map

@@ -20,23 +20,7 @@ class Armor(Item):
             multiplier = get_item_level_multiplier(self.item_lvl, affix.rarity)
             bonus += round(affix.ac * multiplier)
 
-            # print(
-            #     "AFFIX:",
-            #     affix_id,
-            #     "AC:", affix.ac,
-            #     "MULT:", multiplier
-            # )
-
         base_multiplier = get_base_ac_multiplier(self.item_lvl)
         scaled_base_ac = round(self.base_ac * base_multiplier)
-
-        # print(
-        #     "BASE AC:", self.base_ac,
-        #     "ILVL:", self.item_lvl,
-        #     "BASE MULT:", base_multiplier,
-        #     "SCALED BASE:", scaled_base_ac,
-        #     "AFFIX BONUS:", bonus,
-        #     "TOTAL:", scaled_base_ac + bonus
-        # )
 
         return scaled_base_ac + bonus

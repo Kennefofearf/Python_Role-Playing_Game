@@ -10,6 +10,5 @@ class Affix:
         self.ac = ac
         self.min_dmg = min_dmg
         self.max_dmg = max_dmg
-        # self.slots = slots
         self.item_type = item_type
         self.rarity = rarity

@@ -117,10 +117,6 @@ class Player:
 
         return self.base_df + bonus
 
-    # @df.setter
-    # def df(self, value):
-    #     self._df = max(0, value)
-
     @property
     def ac(self):
         total = 0

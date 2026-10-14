@@ -85,23 +85,23 @@ def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_off
     player.regenerate_hp(now)
     update_active_effects(player, now, combat_messages)
     ny, nx = player.future_position(py, px)
-    if not movement_area(stdscr, ny, nx):
-        py = 0
-        px = 0
-
-    next_y, next_x = player.future_position(py, px)
-
-    map_y = next_y - 25
-    map_x = next_x - 55
-
-    inside_map = (0 <= map_y < len(map_1) and 0 <= map_x < len(map_1[map_y]))
-
-    if not inside_map:
-        py = 0
-        px = 0
-    elif map_1[map_y][map_x] == "#":
-        py = 0
-        px = 0
+    # if not movement_area(stdscr, ny, nx):
+    #     py = 0
+    #     px = 0
+    #
+    # next_y, next_x = player.future_position(py, px)
+    #
+    # map_y = next_y - 25
+    # map_x = next_x - 55
+    #
+    # inside_map = (0 <= map_y < len(map_1) and 0 <= map_x < len(map_1[map_y]))
+    #
+    # if not inside_map:
+    #     py = 0
+    #     px = 0
+    # elif map_1[map_y][map_x] == "#":
+    #     py = 0
+    #     px = 0
 
     player_hit = player_auto_attack_logic(player, add_log_messages, combat_messages)
     enemy_hit = enemy_auto_attack_logic(enemies, player, add_log_messages, combat_messages)
@@ -126,6 +126,7 @@ def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_off
             continue
 
         ey, ex = e.enemy_random_movement()
+        ey, ex = e.aggro(player)
         ney, nex = e.future_position(ey, ex)
 
         if not movement_area(stdscr, ney, nex):
@@ -183,6 +184,8 @@ def gamestart(stdscr, player):
 
     map_1 = edit_map(TEST_MAP)
 
+    #game_map = [[" " for _ in range(1000)] for _ in range(1000)]
+
 
     player.position = [26, 56]
 
@@ -208,7 +211,7 @@ def gamestart(stdscr, player):
     last_y, last_x = stdscr.getmaxyx()
 
     while True:
-        display_map(stdscr, map_1, 25, 55)
+        #display_map(stdscr, map_1, 25, 55)
 
         y_max, x_max = stdscr.getmaxyx()
 
@@ -346,7 +349,7 @@ def main(stdscr):
             gamestart(stdscr, player)
 
         elif choice == "map_editor":
-            game_map = [["." for _ in range(1000)] for _ in range(1000)]
+            game_map = [[" " for _ in range(1000)] for _ in range(1000)]
             map_editor(stdscr, game_map)
 
         elif choice == "quit":

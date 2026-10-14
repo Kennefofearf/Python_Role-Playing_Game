@@ -65,6 +65,26 @@ class Monster:
                 self.position[1] -= ex
         return
 
+    def aggro(self, player):
+        ey, ex = 0, 0
+
+        dy = player.position[0] - self.position[0]
+        dx = player.position[1] - self.position[1]
+
+        in_range = abs(dy) <= 5 and abs(dx) <= 5
+
+        if not self.is_attacking and self.alive:
+            if in_range:
+                if dy != 0:
+                    ey = (dy > 0) - (dy < 0)
+                elif dx != 0:
+                    ex = (dx < 0) - (dx > 0)
+            else:
+                ey, ex = self.enemy_random_movement()
+
+        return ey, ex
+
+
     def future_position(self, ey, ex):
         return self.position[0] + ey, self.position[1] - ex
 

@@ -149,6 +149,9 @@ def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_off
             py = 0
             px = 0
 
+        if not e.movement_range(ey,ex):
+            ey, ex = 0, 0
+
         e.move(ey, ex)
 
     player.move(py, px)

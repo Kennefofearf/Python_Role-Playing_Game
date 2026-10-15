@@ -24,6 +24,8 @@ class Monster:
         self.hp_ra = hp_ra
         self.species = species
         self.position = [random.randint(2, 19), random.randint(2, 99)]
+        self.home_position = self.position.copy()
+        self.move_radius = 3
         self.alive = True
         self.xp = xp
         self.respawn_delay = respawn_delay
@@ -43,8 +45,7 @@ class Monster:
     def enemy_random_movement(self):
         ey, ex = 0, 0
         if not self.is_attacking:
-            ey = 0
-            ex = 0
+
             now = time.monotonic()
             if now < self.idle:
                 return 0, 0
@@ -65,11 +66,14 @@ class Monster:
                 self.position[1] -= ex
         return
 
-    def movement_range(self):
-        ay = self.position[0] + 3
-        ax = self.position[1] + 3
+    def movement_range(self, ey, ex):
+        next_y, next_x = self.future_position(ey, ex)
+        home_y, home_x = self.home_position
 
-
+        return (
+            abs(next_y - home_y) <= self.move_radius
+            and abs(next_x - home_x) <= self.move_radius
+        )
 
     def aggro(self, player):
         ey, ex = 0, 0

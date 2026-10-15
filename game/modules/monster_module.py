@@ -65,6 +65,12 @@ class Monster:
                 self.position[1] -= ex
         return
 
+    def movement_range(self):
+        ay = self.position[0] + 3
+        ax = self.position[1] + 3
+
+
+
     def aggro(self, player):
         ey, ex = 0, 0
 

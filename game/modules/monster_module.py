@@ -26,6 +26,7 @@ class Monster:
         self.position = [random.randint(2, 19), random.randint(2, 99)]
         self.home_position = self.position.copy()
         self.move_radius = 3
+        self.is_aggroed = False
         self.alive = True
         self.xp = xp
         self.respawn_delay = respawn_delay
@@ -75,6 +76,12 @@ class Monster:
             and abs(next_x - home_x) <= self.move_radius
         )
 
+    def return_home(self):
+        home_y, home_x = self.home_position
+
+        return (self.position[0] > home_y + 3 or self.position[0] < home_y - 3
+                and self.position[1] > home_x + 3 or self.position[1] < home_x - 3)
+
     def aggro(self, player):
         ey, ex = 0, 0
 
@@ -85,6 +92,7 @@ class Monster:
 
         if not self.is_attacking and self.alive:
             if in_range:
+                self.is_aggroed = True
                 if dy != 0:
                     ey = (dy > 0) - (dy < 0)
                 elif dx != 0:

@@ -85,23 +85,6 @@ def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_off
     player.regenerate_hp(now)
     update_active_effects(player, now, combat_messages)
     ny, nx = player.future_position(py, px)
-    # if not movement_area(stdscr, ny, nx):
-    #     py = 0
-    #     px = 0
-    #
-    # next_y, next_x = player.future_position(py, px)
-    #
-    # map_y = next_y - 25
-    # map_x = next_x - 55
-    #
-    # inside_map = (0 <= map_y < len(map_1) and 0 <= map_x < len(map_1[map_y]))
-    #
-    # if not inside_map:
-    #     py = 0
-    #     px = 0
-    # elif map_1[map_y][map_x] == "#":
-    #     py = 0
-    #     px = 0
 
     player_hit = player_auto_attack_logic(player, add_log_messages, combat_messages)
     enemy_hit = enemy_auto_attack_logic(enemies, player, add_log_messages, combat_messages)
@@ -149,7 +132,11 @@ def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_off
             py = 0
             px = 0
 
-        if not e.movement_range(ey,ex):
+        if not e.movement_range(ey, ex) and not e.is_aggroed:
+            # if not e.is_attacking and e.return_home():
+            #     ey -= e.position[0] - e.home_position[0]
+            #     ex -= e.position[1] - e.home_position[1]
+
             ey, ex = 0, 0
 
         e.move(ey, ex)

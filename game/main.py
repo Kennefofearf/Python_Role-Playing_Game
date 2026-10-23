@@ -24,8 +24,11 @@ from modules.player_module import Player
 from modules.monster_module import GiantAnt, Kobold, Bear, AntQueen
 from systems.player_persistence.save_character import player_to_dict
 from systems.player_persistence.player_to_json import player_dict_to_json
-from systems.maps.map_system import display_map, edit_map, load_map
+from systems.maps.map_system import display_map, edit_map, load_map, display_xp_map
 from data.maps import TEST_MAP
+from systems.convert_xp_file import load_xp
+
+filename = r"C:\Users\Kenny\PycharmProjects\ASCIIProject\game\maps\SW_Island.xp"
 
 enemies = []
 
@@ -339,7 +342,7 @@ def main(stdscr):
             gamestart(stdscr, player)
 
         elif choice == "map_editor":
-            game_map = [[" " for _ in range(1000)] for _ in range(1000)]
+            game_map = load_xp(filename)
             map_editor(stdscr, game_map)
 
         elif choice == "quit":
@@ -347,3 +350,5 @@ def main(stdscr):
 
 
 wrapper(main)
+
+

@@ -1,9 +1,12 @@
 import curses
-from systems.maps.map_system import display_map, save_map, load_map
+from systems.maps.map_system import display_map, save_map, load_map, display_xp_map
 from modules.camera_module import Camera
+from UI.colors import init_colors
 
 
 def map_editor(stdscr, game_map):
+    init_colors()
+
     screen_y, screen_x = stdscr.getmaxyx()
     cursor_y, cursor_x = 1, 1
 
@@ -19,11 +22,15 @@ def map_editor(stdscr, game_map):
 
         camera.follow(cursor_y, cursor_x, len(game_map), len(game_map[0]))
 
-        display_map(stdscr, game_map, 1, 1, camera)
+        display_xp_map(stdscr, game_map, 1, 1, camera)
 
         cursor_screen_y, cursor_screen_x = camera.world_to_screen(cursor_y, cursor_x, 1, 1)
 
-        stdscr.addch(cursor_screen_y, cursor_screen_x, game_map[cursor_y][cursor_x], curses.A_REVERSE)
+        cell = game_map[cursor_y][cursor_x]
+        char = chr(cell[0])
+        color = curses.color_pair(20)
+
+        stdscr.addch(cursor_screen_y, cursor_screen_x, char, color | curses.A_REVERSE)
 
         stdscr.refresh()
 

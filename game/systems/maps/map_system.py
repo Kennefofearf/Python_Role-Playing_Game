@@ -1,3 +1,5 @@
+import curses
+
 from data.maps import TEST_MAP
 from pathlib import Path
 
@@ -13,6 +15,24 @@ def display_map(stdscr, game_map, start_y, start_x, camera=None):
 
         for x in range(left, right):
             stdscr.addch(start_y + y - top, start_x + x - left, game_map[y][x])
+
+
+def display_xp_map(stdscr, game_map, start_y, start_x, camera=None):
+    top = camera.y if camera else 0
+    left = camera.x if camera else 0
+
+    bottom = min(len(game_map), top + camera.height) if camera else len(game_map)
+
+    for y in range(top, bottom):
+        right = min(len(game_map[y]), left + camera.width) if camera else len(game_map[y])
+
+        for x in range(left, right):
+            cell = game_map[y][x]
+            char = chr(cell[0])
+            foreground = cell[1:4]
+            background = cell[4:7]
+            color = curses.color_pair(20)
+            stdscr.addch(start_y + y - top, start_x + x - left, char, color)
 
 
 def edit_map(map):

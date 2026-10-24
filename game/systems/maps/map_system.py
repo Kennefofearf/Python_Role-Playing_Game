@@ -1,4 +1,5 @@
 import curses
+from data.cp437 import cp437_to_unicode
 
 from data.maps import TEST_MAP
 from pathlib import Path
@@ -28,11 +29,11 @@ def display_xp_map(stdscr, game_map, start_y, start_x, camera=None):
 
         for x in range(left, right):
             cell = game_map[y][x]
-            char = chr(cell[0])
+            char = cp437_to_unicode(cell[0])
             foreground = cell[1:4]
             background = cell[4:7]
             color = curses.color_pair(20)
-            stdscr.addch(start_y + y - top, start_x + x - left, char, color)
+            stdscr.addstr(start_y + y - top, start_x + x - left, char, color)
 
 
 def edit_map(map):

@@ -1,7 +1,7 @@
 import curses
 from systems.maps.map_system import display_map, save_map, load_map, display_xp_map
 from modules.camera_module import Camera
-from UI.colors import init_colors
+from UI.colors import init_colors, get_pair_id
 
 
 def map_editor(stdscr, game_map):
@@ -11,6 +11,9 @@ def map_editor(stdscr, game_map):
     cursor_y, cursor_x = 1, 1
 
     camera = Camera(screen_y - 2, screen_x - 2)
+
+    color_ids = {}
+    pair_ids = {}
 
     while True:
 
@@ -22,7 +25,7 @@ def map_editor(stdscr, game_map):
 
         camera.follow(cursor_y, cursor_x, len(game_map), len(game_map[0]))
 
-        display_xp_map(stdscr, game_map, 1, 1, camera)
+        display_xp_map(stdscr, game_map, 1, 1, color_ids, pair_ids, camera)
 
         cursor_screen_y, cursor_screen_x = camera.world_to_screen(cursor_y, cursor_x, 1, 1)
 

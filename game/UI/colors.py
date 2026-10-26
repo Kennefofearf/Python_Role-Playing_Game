@@ -43,3 +43,42 @@ def get_color_from_rarity(rarity):
         return 2
     elif rarity == "purple":
         return 5
+
+
+def get_pair_id(foreground, background, color_ids, pair_ids):
+    pair_key = (foreground, background)
+
+    if pair_key in pair_ids:
+        return pair_ids[pair_key]
+    else:
+        foreground_id = get_color_id(foreground, color_ids)
+        background_id = get_color_id(background, color_ids)
+
+        pair_id = 21 + len(pair_ids)
+
+        if pair_id >= curses.COLOR_PAIRS:
+            raise ValueError("No more color pair slots!")
+
+        curses.init_pair(pair_id, foreground_id, background_id)
+        pair_ids[pair_key] = pair_id
+
+        return pair_id
+
+
+def get_color_id(rgb, color_ids):
+    if rgb in color_ids:
+        return color_ids[rgb]
+    else:
+        red = round(rgb[0] * 1000 / 255)
+        green = round(rgb[1] * 1000 / 255)
+        blue = round(rgb[2] * 1000 / 255)
+
+        color_id = 21 + len(color_ids)
+
+        if color_id >= curses.COLORS:
+            raise ValueError("No more custom color slots!")
+
+        curses.init_color(color_id, red, green, blue)
+        color_ids[rgb] = color_id
+
+        return color_id

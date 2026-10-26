@@ -1,6 +1,6 @@
 import curses
 from data.cp437 import cp437_to_unicode
-
+from UI.colors import get_pair_id
 from data.maps import TEST_MAP
 from pathlib import Path
 
@@ -18,7 +18,7 @@ def display_map(stdscr, game_map, start_y, start_x, camera=None):
             stdscr.addch(start_y + y - top, start_x + x - left, game_map[y][x])
 
 
-def display_xp_map(stdscr, game_map, start_y, start_x, camera=None):
+def display_xp_map(stdscr, game_map, start_y, start_x, color_ids, pair_ids, camera=None):
     top = camera.y if camera else 0
     left = camera.x if camera else 0
 
@@ -32,7 +32,8 @@ def display_xp_map(stdscr, game_map, start_y, start_x, camera=None):
             char = cp437_to_unicode(cell[0])
             foreground = cell[1:4]
             background = cell[4:7]
-            color = curses.color_pair(20)
+            pair_id = get_pair_id(foreground, background, color_ids, pair_ids)
+            color = curses.color_pair(pair_id)
             stdscr.addstr(start_y + y - top, start_x + x - left, char, color)
 
 

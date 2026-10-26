@@ -353,6 +353,9 @@ class Player:
             py, px = 0, 0
         return py, px
 
-    def player_spawn(self, stdscr, prev_positions, player):
-        stdscr.addch(player.position[0], player.position[1], player.icon)
-        prev_positions.append(tuple(player.position))
+    def player_spawn(self, stdscr, prev_positions, camera, start_y, start_x):
+        screen_y, screen_x = camera.world_to_screen(self.position[0], self.position[1], start_y, start_x)
+
+        if (start_y <= screen_y < start_y + camera.height and start_x <= screen_x < start_x + camera.width):
+            stdscr.addch(screen_y, screen_x, self.icon)
+            prev_positions.append((screen_y, screen_x))

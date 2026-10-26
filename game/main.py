@@ -22,6 +22,7 @@ from UI.character_sheet import show_character_sheet
 from UI.map_editor import map_editor
 from modules.player_module import Player
 from modules.monster_module import GiantAnt, Kobold, Bear, AntQueen
+from modules.camera_module import Camera
 from systems.player_persistence.save_character import player_to_dict
 from systems.player_persistence.player_to_json import player_dict_to_json
 from systems.maps.map_system import display_map, edit_map, load_map, display_xp_map
@@ -63,23 +64,27 @@ def mouse_actions(mx, my, bstate, player):
     return False, None
 
 
-def draw_enemies(stdscr, enemies, selected, prev_positions):
+def draw_enemies(stdscr, enemies, selected, prev_positions, camera, start_x, start_y):
     for enemy in enemies:
         if not enemy.alive:
             continue
 
-        y, x = enemy.position
+        screen_y, screen_x = camera.world_to_screen(enemy.position[0], enemy.position[1], start_y, start_x)
+
+        if not (start_y <= screen_y < start_y + camera.height and start_x <= screen_x < start_x + camera.width):
+            continue
 
         if enemy == selected:
             attr = curses.color_pair(1)
         else:
             attr = curses.A_NORMAL
 
-        stdscr.addch(y, x, enemy.icon, attr)
-        prev_positions.append((y, x))
+        stdscr.addch(screen_y, screen_x, enemy.icon, attr)
+        prev_positions.append((screen_y, screen_x))
 
 
-def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_offset, enemy_window, map_1):
+def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_offset, enemy_window, game_map, start_y,
+                      start_x, camera):
     now = time.time()
 
     win_y, win_x = enemy_window.getbegyx()
@@ -88,6 +93,10 @@ def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_off
     player.regenerate_hp(now)
     update_active_effects(player, now, combat_messages)
     ny, nx = player.future_position(py, px)
+
+    if not inside_map(game_map, ny, nx):
+        py, px = 0, 0
+        ny, nx = player.future_position(py, px)
 
     player_hit = player_auto_attack_logic(player, add_log_messages, combat_messages)
     enemy_hit = enemy_auto_attack_logic(enemies, player, add_log_messages, combat_messages)
@@ -98,7 +107,8 @@ def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_off
     if player.player_death:
         add_log_messages(combat_messages, [(f"RIP...", 1)])
         draw_log(inner, combat_messages, scroll_offset)
-        stdscr.addstr(player.position[0], player.position[1], player.icon, curses.color_pair(RED_BG))
+        screen_y, screen_x = camera.world_to_screen(player.position[0], player.position[1], start_y, start_x)
+        stdscr.addstr(screen_y, screen_x, player.icon, curses.color_pair(RED_BG))
         stdscr.refresh()
         time.sleep(3)
         return True
@@ -115,13 +125,13 @@ def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_off
         ey, ex = e.aggro(player)
         ney, nex = e.future_position(ey, ex)
 
-        if not movement_area(stdscr, ney, nex):
+        if not inside_map(game_map, ney, nex):
             ey = 0
             ex = 0
 
-        elif win_y <= ney < win_y + win_h and win_x <= nex < win_x + win_w:
-            ey = 0
-            ex = 0
+        # elif win_y <= ney < win_y + win_h and win_x <= nex < win_x + win_w:
+        #     ey = 0
+        #     ex = 0
 
         elif (ney, nex) == tuple(player.position):
             ey = 0
@@ -154,6 +164,12 @@ def movement_area(win, y, x):
     return 1 <= y <= h - 2 and 1 <= x <= w - 2
 
 
+def inside_map(game_map, y, x):
+    return (
+        0 <= y < len(game_map) and 0 <= x < len(game_map[y])
+    )
+
+
 def add_log_messages(combat_messages, message_pair):
     if len(combat_messages) > 200:
         combat_messages.pop(0)
@@ -177,10 +193,11 @@ def gamestart(stdscr, player):
 
     map_1 = edit_map(TEST_MAP)
 
-    #game_map = [[" " for _ in range(1000)] for _ in range(1000)]
+    game_map = load_xp(filename)
+    color_ids = {}
+    pair_ids = {}
 
-
-    player.position = [26, 56]
+    player.position = [75, 21]
 
     # Window rendering
 
@@ -202,10 +219,10 @@ def gamestart(stdscr, player):
     window_too_small = False
 
     last_y, last_x = stdscr.getmaxyx()
+    start_y, start_x = 1, 1
+    camera = Camera(last_y - start_y - 1, last_x - start_x - 1)
 
     while True:
-        #display_map(stdscr, map_1, 25, 55)
-
         y_max, x_max = stdscr.getmaxyx()
 
         if y_max < MIN_HEIGHT or x_max < MIN_WIDTH:
@@ -253,14 +270,18 @@ def gamestart(stdscr, player):
 
         prev_positions = []
 
+        camera.follow(player.position[0], player.position[1], len(game_map), len(game_map[0]))
+
+        display_xp_map(stdscr, game_map, start_y, start_x, color_ids, pair_ids, camera)
+
         draw_player_window(player_window, player)
         draw_gear_progress_window(gear_progress_window, player)
         draw_action_bar(action_bar, player)
 
         draw_enemy_window(enemy_window, selected)
 
-        player.player_spawn(stdscr, prev_positions, player)
-        draw_enemies(stdscr, enemies, selected, prev_positions)
+        player.player_spawn(stdscr, prev_positions, camera, start_y, start_x)
+        draw_enemies(stdscr, enemies, selected, prev_positions, camera, start_y, start_x)
 
         stdscr.refresh()
 
@@ -293,6 +314,10 @@ def gamestart(stdscr, player):
         elif key == curses.KEY_MOUSE:
             _, mx, my, _, bstate, = curses.getmouse()
 
+            if start_y <= my < start_y + camera.height and start_x <= mx < start_x + camera.width:
+                map_y = my - start_y + camera.y
+                map_x = mx - start_x + camera.x
+
             clicked, picked = mouse_actions(mx, my, bstate, player)
             selected = picked
             player.target = picked
@@ -314,7 +339,7 @@ def gamestart(stdscr, player):
         py, px = player.input_action(key)
 
         player_died = world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_offset, enemy_window,
-                                        map_1)
+                                        game_map, start_y, start_x, camera)
 
         if player_died:
             return

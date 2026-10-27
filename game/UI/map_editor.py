@@ -14,6 +14,7 @@ def map_editor(stdscr, game_map):
 
     color_ids = {}
     pair_ids = {}
+    render_cache = {}
 
     while True:
 
@@ -25,7 +26,7 @@ def map_editor(stdscr, game_map):
 
         camera.follow(cursor_y, cursor_x, len(game_map), len(game_map[0]))
 
-        display_xp_map(stdscr, game_map, 1, 1, color_ids, pair_ids, camera)
+        display_xp_map(stdscr, game_map, 1, 1, color_ids, pair_ids, render_cache, camera)
 
         cursor_screen_y, cursor_screen_x = camera.world_to_screen(cursor_y, cursor_x, 1, 1)
 

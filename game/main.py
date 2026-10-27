@@ -222,6 +222,11 @@ def gamestart(stdscr, player):
     start_y, start_x = 1, 1
     camera = Camera(last_y - start_y - 1, last_x - start_x - 1)
 
+    render_cache = {}
+
+    last_view = None
+    redraw_map = True
+
     while True:
         y_max, x_max = stdscr.getmaxyx()
 
@@ -247,32 +252,34 @@ def gamestart(stdscr, player):
                 log_height
             ) = create_game_windows(stdscr)
 
+            redraw_map = True
             last_y, last_x = y_max, x_max
             window_too_small = False
 
-        if window_too_small:
-            (
-                enemy_window,
-                outer,
-                inner,
-                outer_h,
-                outer_w,
-                player_window,
-                gear_progress_window,
-                action_bar,
-                log_height
-            ) = create_game_windows(stdscr)
-
-            window_too_small = False
-
-        for y, x in prev_positions:
-            stdscr.addch(y, x, ord(" "))
-
-        prev_positions = []
-
         camera.follow(player.position[0], player.position[1], len(game_map), len(game_map[0]))
 
-        display_xp_map(stdscr, game_map, start_y, start_x, color_ids, pair_ids, camera)
+        current_view = (camera.y, camera.x, camera.height, camera.width, start_y, start_x)
+
+        if redraw_map or current_view != last_view:
+            display_xp_map(stdscr, game_map, start_y, start_x, color_ids, pair_ids, render_cache, camera)
+
+        else:
+            for screen_y, screen_x in prev_positions:
+                map_y = screen_y - start_y + camera.y
+                map_x = screen_x - start_x + camera.x
+
+                if (
+                        start_y <= screen_y < start_y + camera.height
+                        and start_x <= screen_x < start_x + camera.width
+                        and 0 <= map_y < len(game_map) and 0 <= map_x < len(game_map[map_y])
+                ):
+                    cell = game_map[map_y][map_x]
+                    char, color = render_cache[cell]
+                    stdscr.addstr(screen_y, screen_x, char, color)
+
+        prev_positions = []
+        last_view = current_view
+        redraw_map = False
 
         draw_player_window(player_window, player)
         draw_gear_progress_window(gear_progress_window, player)
@@ -296,17 +303,20 @@ def gamestart(stdscr, player):
 
             break
 
-        elif key == ord("e"):
-            stdscr.clear()
-            map_editor(stdscr, map_1)
+        # elif key == ord("e"):
+        #     stdscr.clear()
+        #     map_editor(stdscr, map_1)
 
         elif key == ord("i"):
             player_window.clear()
             open_inventory_window(stdscr, player)
+            stdscr.touchwin()
+            redraw_map = True
 
         elif key == ord("c"):
             player_window.clear()
             show_character_sheet(stdscr, player)
+            redraw_map = True
 
         # elif key == curses.KEY_RESIZE:
         #     create_game_windows(stdscr)

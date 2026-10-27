@@ -18,7 +18,7 @@ def display_map(stdscr, game_map, start_y, start_x, camera=None):
             stdscr.addch(start_y + y - top, start_x + x - left, game_map[y][x])
 
 
-def display_xp_map(stdscr, game_map, start_y, start_x, color_ids, pair_ids, camera=None):
+def display_xp_map(stdscr, game_map, start_y, start_x, color_ids, pair_ids, render_cache, camera=None):
     top = camera.y if camera else 0
     left = camera.x if camera else 0
 
@@ -29,11 +29,19 @@ def display_xp_map(stdscr, game_map, start_y, start_x, color_ids, pair_ids, came
 
         for x in range(left, right):
             cell = game_map[y][x]
-            char = cp437_to_unicode(cell[0])
-            foreground = cell[1:4]
-            background = cell[4:7]
-            pair_id = get_pair_id(foreground, background, color_ids, pair_ids)
-            color = curses.color_pair(pair_id)
+
+            if cell not in render_cache:
+                char = cp437_to_unicode(cell[0])
+
+                foreground = cell[1:4]
+                background = cell[4:7]
+
+                pair_id = get_pair_id(foreground, background, color_ids, pair_ids)
+
+                render_cache[cell] = (char, curses.color_pair(pair_id))
+
+            char, color = render_cache[cell]
+
             stdscr.addstr(start_y + y - top, start_x + x - left, char, color)
 
 

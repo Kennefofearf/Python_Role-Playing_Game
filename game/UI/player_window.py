@@ -52,7 +52,7 @@ def draw_player_window(player_window, player):
     player_window.refresh()
 
 
-def draw_gear_progress_window(gear_progress_window, player):
+def draw_gear_progress_window(gear_progress_window, player, draw_ms, refresh_ms):
     gear_progress_window.erase()
     gear_progress_window.box()
 
@@ -84,6 +84,8 @@ def draw_gear_progress_window(gear_progress_window, player):
         gear_progress_window.addstr(6, 1, f"Weapon: {xp_percentage}% [{player.weapon.skill_points}]")
     else:
         gear_progress_window.addstr(6, 1, f"Weapon: None")
+
+    #gear_progress_window.addstr(7, 1, f"{draw_ms:.1f}, {refresh_ms:.1f}")
 
     gear_progress_window.refresh()
 

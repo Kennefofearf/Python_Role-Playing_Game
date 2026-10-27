@@ -25,7 +25,8 @@ from modules.monster_module import GiantAnt, Kobold, Bear, AntQueen
 from modules.camera_module import Camera
 from systems.player_persistence.save_character import player_to_dict
 from systems.player_persistence.player_to_json import player_dict_to_json
-from systems.maps.map_system import display_map, edit_map, load_map, display_xp_map
+from data.cp437 import cp437_to_unicode
+from systems.maps.map_system import display_map, edit_map, load_map, display_xp_map, get_pair_id
 from data.maps import TEST_MAP
 from systems.convert_xp_file import load_xp
 
@@ -191,8 +192,6 @@ def gamestart(stdscr, player):
 
     stdscr.clear()
 
-    map_1 = edit_map(TEST_MAP)
-
     game_map = load_xp(filename)
     color_ids = {}
     pair_ids = {}
@@ -226,6 +225,9 @@ def gamestart(stdscr, player):
 
     last_view = None
     redraw_map = True
+
+    draw_ms = 0.0
+    refresh_ms = 0.0
 
     while True:
         y_max, x_max = stdscr.getmaxyx()
@@ -261,7 +263,9 @@ def gamestart(stdscr, player):
         current_view = (camera.y, camera.x, camera.height, camera.width, start_y, start_x)
 
         if redraw_map or current_view != last_view:
+            draw_start = time.perf_counter()
             display_xp_map(stdscr, game_map, start_y, start_x, color_ids, pair_ids, render_cache, camera)
+            draw_ms = (time.perf_counter() - draw_start) * 1000
 
         else:
             for screen_y, screen_x in prev_positions:
@@ -282,7 +286,7 @@ def gamestart(stdscr, player):
         redraw_map = False
 
         draw_player_window(player_window, player)
-        draw_gear_progress_window(gear_progress_window, player)
+        draw_gear_progress_window(gear_progress_window, player, draw_ms, refresh_ms)
         draw_action_bar(action_bar, player)
 
         draw_enemy_window(enemy_window, selected)
@@ -290,11 +294,14 @@ def gamestart(stdscr, player):
         player.player_spawn(stdscr, prev_positions, camera, start_y, start_x)
         draw_enemies(stdscr, enemies, selected, prev_positions, camera, start_y, start_x)
 
+        refresh_start = time.perf_counter()
         stdscr.refresh()
+        refresh_ms = (time.perf_counter() - refresh_start) * 1000
 
         key = stdscr.getch()
-        my = 0
-        mx = 0
+
+        if key in (ord("w"), ord("a"), ord("s"), ord("d")):
+            curses.flushinp()
 
         if key == ord("q"):
 

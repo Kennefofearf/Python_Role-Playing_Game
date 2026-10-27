@@ -64,7 +64,7 @@ def mouse_actions(mx, my, bstate, player):
     return False, None
 
 
-def draw_enemies(stdscr, enemies, selected, prev_positions, camera, start_x, start_y):
+def draw_enemies(stdscr, enemies, selected, prev_positions, camera, start_y, start_x):
     for enemy in enemies:
         if not enemy.alive:
             continue
@@ -328,7 +328,7 @@ def gamestart(stdscr, player):
                 map_y = my - start_y + camera.y
                 map_x = mx - start_x + camera.x
 
-            clicked, picked = mouse_actions(mx, my, bstate, player)
+            clicked, picked = mouse_actions(map_x, map_y, bstate, player)
             selected = picked
             player.target = picked
 

@@ -27,6 +27,10 @@ def display_xp_map(stdscr, game_map, start_y, start_x, color_ids, pair_ids, rend
     for y in range(top, bottom):
         right = min(len(game_map[y]), left + camera.width) if camera else len(game_map[y])
 
+        run_chars = []
+        run_color = None
+        run_start_x = left
+
         for x in range(left, right):
             cell = game_map[y][x]
 
@@ -42,7 +46,18 @@ def display_xp_map(stdscr, game_map, start_y, start_x, color_ids, pair_ids, rend
 
             char, color = render_cache[cell]
 
-            stdscr.addstr(start_y + y - top, start_x + x - left, char, color)
+            if run_chars and color != run_color:
+                stdscr.addstr(start_y + (y - top), start_x + (run_start_x - left), "".join(run_chars), run_color)
+                run_chars = []
+
+            if not run_chars:
+                run_start_x = x
+                run_color = color
+
+            run_chars.append(char)
+
+        if run_chars:
+            stdscr.addstr(start_y + y - top, start_x + run_start_x - left, "".join(run_chars), run_color)
 
 
 def edit_map(map):

@@ -218,8 +218,11 @@ def gamestart(stdscr, player):
     window_too_small = False
 
     last_y, last_x = stdscr.getmaxyx()
-    start_y, start_x = last_y // 8, 1
-    camera = Camera(start_y + (start_y * 4) + 4, last_x - start_x - 1)
+    start_y = last_y // 8
+    world_height = start_y + (start_y * 4) + 4
+    world_width = 70 - 1 - 1
+    start_x = (last_x - world_width) // 2
+    camera = Camera(world_height, world_width)
 
     render_cache = {}
 

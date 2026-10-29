@@ -36,6 +36,8 @@ def map_editor(stdscr, game_map):
 
         stdscr.addch(cursor_screen_y, cursor_screen_x, char, color | curses.A_REVERSE)
 
+        stdscr.addstr(0, 0, f"Cell: {cell}    ")
+
         stdscr.refresh()
 
         key = stdscr.getch()

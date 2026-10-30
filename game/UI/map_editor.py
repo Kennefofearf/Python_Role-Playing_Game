@@ -41,6 +41,8 @@ def map_editor(stdscr, game_map):
         stdscr.refresh()
 
         key = stdscr.getch()
+        if key in (ord("w"), ord("a"), ord("s"), ord("d")):
+            curses.flushinp()
 
         if key == ord("q"):
             stdscr.clear()

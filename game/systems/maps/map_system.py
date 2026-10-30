@@ -1,7 +1,6 @@
 import curses
 from data.cp437 import cp437_to_unicode
 from UI.colors import get_pair_id
-from data.maps import TEST_MAP
 from pathlib import Path
 
 

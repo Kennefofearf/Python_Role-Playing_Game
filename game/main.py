@@ -21,13 +21,16 @@ from UI.create_game_windows import create_game_windows
 from UI.character_sheet import show_character_sheet
 from UI.map_editor import map_editor
 from modules.player_module import Player
-from modules.monster_module import GiantAnt, Kobold, Bear, AntQueen
+
+from modules.monster_module import GiantAnt, AntWarrior, AntWorker, AntElite, RoyalScoutAnt, RoyalWarriorAnt, \
+    RoyalGuardAnt, AntQueen, GiantSpider, Crab, KoboldScout, KoboldWorker, KoboldHunter, KoboldWarrior, KoboldElite, \
+    KoboldChief, Bear, Deer, Snake, Boar, Rakarz
+
 from modules.camera_module import Camera
 from systems.player_persistence.save_character import player_to_dict
 from systems.player_persistence.player_to_json import player_dict_to_json
-from data.cp437 import cp437_to_unicode
-from systems.maps.map_system import display_map, edit_map, load_map, display_xp_map, get_pair_id
-from data.maps import TEST_MAP
+from systems.maps.map_system import display_xp_map
+from data.maps.sw_island_rules import collision_check
 from systems.convert_xp_file import load_xp
 
 filename = r"C:\Users\Kenny\PycharmProjects\ASCIIProject\game\maps\SW_Island.xp"
@@ -94,6 +97,7 @@ def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_off
     player.regenerate_hp(now)
     update_active_effects(player, now, combat_messages)
     ny, nx = player.future_position(py, px)
+    py, px = collision_check(game_map, py, px, ny, nx)
 
     if not inside_map(game_map, ny, nx):
         py, px = 0, 0
@@ -125,14 +129,11 @@ def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_off
         ey, ex = e.enemy_random_movement()
         ey, ex = e.aggro(player)
         ney, nex = e.future_position(ey, ex)
+        ey, ex = collision_check(game_map, ey, ex, ney, nex)
 
         if not inside_map(game_map, ney, nex):
             ey = 0
             ex = 0
-
-        # elif win_y <= ney < win_y + win_h and win_x <= nex < win_x + win_w:
-        #     ey = 0
-        #     ex = 0
 
         elif (ney, nex) == tuple(player.position):
             ey = 0

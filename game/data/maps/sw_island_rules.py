@@ -13,6 +13,16 @@ BLOCKED_CELLS = {
     (35, 255, 255, 255, 0, 140, 0),
     (35, 255, 255, 255, 255, 204, 51),
     # gravestones
-    (219, 255, 255, 255, 0, 140, 0),
-    (197, 255, 255, 255, 0, 140, 0)
+    (32, 0, 140, 0, 255, 255, 255),
+    (43, 255, 255, 255, 0, 140, 0)
 }
+
+
+def collision_check(game_map, dy, dx, next_y, next_x):
+    if not (0 <= next_y < len(game_map) and 0 <= next_x < len(game_map[next_y])):
+        return 0, 0
+
+    if game_map[next_y][next_x] in BLOCKED_CELLS:
+        return 0, 0
+
+    return dy, dx

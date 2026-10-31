@@ -1,7 +1,5 @@
-import curses
 import time
 import random
-import pdb
 
 
 class Monster:
@@ -27,6 +25,7 @@ class Monster:
         self.home_position = self.position.copy()
         self.move_radius = 3
         self.is_aggroed = False
+        self.aggro_range = 5
         self.alive = True
         self.xp = xp
         self.respawn_delay = respawn_delay
@@ -88,7 +87,7 @@ class Monster:
         dy = player.position[0] - self.position[0]
         dx = player.position[1] - self.position[1]
 
-        in_range = abs(dy) <= 5 and abs(dx) <= 5
+        in_range = abs(dy) <= self.aggro_range and abs(dx) <= self.aggro_range
 
         if not self.is_attacking and self.alive:
             if in_range:

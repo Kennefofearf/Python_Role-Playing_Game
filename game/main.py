@@ -47,7 +47,7 @@ DEFAULT_WIDTH = 150
 
 os.system(f"mode con: cols={DEFAULT_WIDTH} lines={DEFAULT_HEIGHT}")
 
-for enemy in [GiantAnt, Kobold, Bear]:
+for enemy in [GiantAnt, KoboldScout, Bear]:
     for _ in range(3):
         e = enemy()
         enemies.append(e)

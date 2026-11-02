@@ -21,16 +21,11 @@ from UI.create_game_windows import create_game_windows
 from UI.character_sheet import show_character_sheet
 from UI.map_editor import map_editor
 from modules.player_module import Player
-
-from modules.monster_module import GiantAnt, AntWarrior, AntWorker, AntElite, RoyalScoutAnt, RoyalWarriorAnt, \
-    RoyalGuardAnt, AntQueen, GiantSpider, Crab, KoboldScout, KoboldWorker, KoboldHunter, KoboldWarrior, KoboldElite, \
-    KoboldChief, Bear, Deer, Snake, Boar, Rakarz
-
 from modules.camera_module import Camera
 from systems.player_persistence.save_character import player_to_dict
 from systems.player_persistence.player_to_json import player_dict_to_json
 from systems.maps.map_system import display_xp_map
-from data.maps.sw_island_rules import collision_check
+from data.maps.sw_island_rules import collision_check, ENEMY_TYPES, get_enemy_spawns
 from systems.convert_xp_file import load_xp
 
 filename = r"C:\Users\Kenny\PycharmProjects\ASCIIProject\game\maps\SW_Island.xp"
@@ -47,15 +42,17 @@ DEFAULT_WIDTH = 150
 
 os.system(f"mode con: cols={DEFAULT_WIDTH} lines={DEFAULT_HEIGHT}")
 
-for enemy in [GiantAnt, KoboldScout, Bear]:
-    for _ in range(3):
-        e = enemy()
-        enemies.append(e)
 
-for elite in [AntQueen]:
-    for _ in range(1):
-        e = elite()
-        enemies.append(e)
+def reset_enemies():
+    enemies.clear()
+
+    for enemy_type, y, x, radius, aggro_range in get_enemy_spawns():
+        enemy = ENEMY_TYPES[enemy_type]()
+        enemy.position = [y, x]
+        enemy.home_position = [y, x]
+        enemy.move_radius = radius
+        enemy.aggro_range = aggro_range
+        enemies.append(enemy)
 
 
 def mouse_actions(mx, my, bstate, player):
@@ -379,12 +376,14 @@ def main(stdscr):
         if choice == "new_game":
             player_name = create_player_character(stdscr)
             player = Player(player_name)
+            reset_enemies()
             gamestart(stdscr, player)
 
         elif choice == "continue":
             name = character_select_screen(stdscr, saved_characters)
             data = load_character(name)
             player = json_to_player(data)
+            reset_enemies()
             gamestart(stdscr, player)
 
         elif choice == "map_editor":

@@ -29,6 +29,7 @@ class Monster:
         self.alive = True
         self.xp = xp
         self.respawn_delay = respawn_delay
+        self.respawn_seconds = 120
         self.attack_cooldown = attack_cooldown
         self.last_attack_time = 0
         self.is_attacking = False
@@ -101,7 +102,6 @@ class Monster:
 
         return ey, ex
 
-
     def future_position(self, ey, ex):
         return self.position[0] + ey, self.position[1] - ex
 
@@ -110,7 +110,7 @@ class Monster:
         self.damaged = True
         if self.hp <= 0:
             self.hp = 0
-            self.respawn_delay = time.monotonic() + 3
+            self.respawn_delay = time.monotonic() + self.respawn_seconds
             self.alive = False
 
     def respawn_timer(self, player):
@@ -118,7 +118,7 @@ class Monster:
             self.alive = True
             self.hp = self.max_hp
             self.respawn_delay = None
-            self.position = [random.randint(2, 19), random.randint(2, 99)]
+            self.position = self.home_position
             while self.position == player.position:
                 self.position = [random.randint(2, 19), random.randint(2, 99)]
 
@@ -223,7 +223,7 @@ class Crab(Monster):
 
 
 class KoboldScout(Monster):
-    def __init__(self, name="Kobold", icon="k", lvl=3, max_hp=200, hp=200, st=15, df=5, ac=0, mp=0, evasion=1,
+    def __init__(self, name="Kobold Scout", icon="k", lvl=3, max_hp=200, hp=200, st=15, df=5, ac=0, mp=0, evasion=1,
                  crit_rate=0, crit_dmg=0, hp_rr=5, hp_ra=1, species="humanoid",
                  xp=8):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,

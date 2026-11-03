@@ -70,6 +70,17 @@ def grasslands_random_spawn():
         return "be"
 
 
+def ant_colony_random_spawn():
+    rand_mon = random.randint(0, 4)
+
+    if rand_mon <= 1:
+        return "ga"
+    elif rand_mon <= 3:
+        return "awk"
+    else:
+        return "ae"
+
+
 def get_enemy_spawns():
     return [
 
@@ -147,9 +158,69 @@ def get_enemy_spawns():
         ("ga", 104, 239, 3, 3),
         ("ga", 49, 310, 3, 3),
         ("ga", 66, 318, 3, 3),
+        # Ant Colony (Maze)
+        (ant_colony_random_spawn(), 40, 290, 20, 2),
+        (ant_colony_random_spawn(), 43, 277, 20, 2),
+        (ant_colony_random_spawn(), 39, 304, 20, 2),
+        (ant_colony_random_spawn(), 29, 300, 20, 2),
+        (ant_colony_random_spawn(), 23, 285, 20, 2),
+        (ant_colony_random_spawn(), 16, 296, 20, 2),
+        (ant_colony_random_spawn(), 7, 302, 20, 2),
+        (ant_colony_random_spawn(), 8, 285, 20, 2),
+        (ant_colony_random_spawn(), 27, 272, 20, 2),
+        (ant_colony_random_spawn(), 13, 296, 20, 2),
+        (ant_colony_random_spawn(), 14, 281, 20, 2),
+        (ant_colony_random_spawn(), 11, 271, 20, 2),
+        (ant_colony_random_spawn(), 24, 270, 20, 2),
+        (ant_colony_random_spawn(), 36, 270, 20, 2),
+        (ant_colony_random_spawn(), 32, 260, 20, 2),
+        (ant_colony_random_spawn(), 42, 257, 20, 2),
+        (ant_colony_random_spawn(), 24, 255, 20, 2),
+        (ant_colony_random_spawn(), 11, 264, 20, 2),
+        (ant_colony_random_spawn(), 8, 256, 20, 2),
+        (ant_colony_random_spawn(), 22, 252, 20, 2),
+        (ant_colony_random_spawn(), 39, 252, 20, 2),
+        (ant_colony_random_spawn(), 33, 245, 20, 2),
+        (ant_colony_random_spawn(), 21, 247, 20, 2),
+        (ant_colony_random_spawn(), 2, 246, 20, 2),
+        (ant_colony_random_spawn(), 4, 225, 20, 2),
+        (ant_colony_random_spawn(), 16, 230, 20, 2),
+        (ant_colony_random_spawn(), 24, 232, 20, 2),
+        (ant_colony_random_spawn(), 31, 235, 20, 2),
+        (ant_colony_random_spawn(), 44, 237, 20, 2),
+        (ant_colony_random_spawn(), 41, 228, 20, 2),
+        (ant_colony_random_spawn(), 35, 218, 20, 2),
+        (ant_colony_random_spawn(), 41, 218, 20, 2),
+        (ant_colony_random_spawn(), 48, 226, 20, 2),
+        (ant_colony_random_spawn(), 46, 212, 20, 2),
+        (ant_colony_random_spawn(), 39, 207, 20, 2),
+        (ant_colony_random_spawn(), 37, 212, 20, 2),
+        (ant_colony_random_spawn(), 31, 219, 20, 2),
+        (ant_colony_random_spawn(), 25, 220, 20, 2),
+        (ant_colony_random_spawn(), 14, 217, 20, 2),
+        (ant_colony_random_spawn(), 2, 222, 20, 2),
+        (ant_colony_random_spawn(), 13, 227, 20, 2),
+        (ant_colony_random_spawn(), 3, 235, 20, 2),
+        (ant_colony_random_spawn(), 9, 231, 20, 2),
+        (ant_colony_random_spawn(), 8, 244, 20, 2),
+        (ant_colony_random_spawn(), 22, 210, 20, 2),
+        (ant_colony_random_spawn(), 9, 211, 20, 2),
+        (ant_colony_random_spawn(), 2, 208, 20, 2),
+        # Ant Colony (Long Section)
+        ("ae", 2, 203, 0, 2),
+        (ant_colony_random_spawn(), 15, 205, 20, 2),
+        (ant_colony_random_spawn(), 34, 204, 20, 2),
+        ("ae", 48, 201, 0, 2),
+        (ant_colony_random_spawn(), 26, 202, 20, 2),
+        (ant_colony_random_spawn(), 6, 201, 20, 2),
+        ("ae", 2, 198, 0, 2),
+        (ant_colony_random_spawn(), 11, 199, 20, 2),
+        (ant_colony_random_spawn(), 23, 198, 20, 2),
+        (ant_colony_random_spawn(), 39, 199, 20, 2),
+        ("ae", 48, 199, 0, 2),
         # Boss Spawns
         # Rakarz
-        ("rkz", 287, 311, 800, 10)
+        #("rkz", 287, 311, 800, 10)
     ]
 
 

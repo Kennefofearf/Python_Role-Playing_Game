@@ -160,7 +160,7 @@ class AntElite(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=1.5,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class RoyalScoutAnt(Monster):
@@ -170,7 +170,7 @@ class RoyalScoutAnt(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=2.0,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class RoyalWarriorAnt(Monster):
@@ -180,7 +180,7 @@ class RoyalWarriorAnt(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=2.0,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class RoyalGuardAnt(Monster):
@@ -190,7 +190,7 @@ class RoyalGuardAnt(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=0.5,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class AntQueen(Monster):
@@ -269,7 +269,7 @@ class KoboldElite(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=1.5,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class KoboldChief(Monster):

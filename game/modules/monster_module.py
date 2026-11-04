@@ -130,7 +130,7 @@ class GiantAnt(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=2.0,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class AntWarrior(Monster):
@@ -140,7 +140,7 @@ class AntWarrior(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=2.0,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class AntWorker(Monster):
@@ -150,7 +150,7 @@ class AntWorker(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=2.0,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class AntElite(Monster):
@@ -160,7 +160,7 @@ class AntElite(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=1.5,
-                         drop_chance=0.4)
+                         drop_chance=0.8)
 
 
 class RoyalScoutAnt(Monster):
@@ -210,7 +210,7 @@ class GiantSpider(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=0.5,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class Crab(Monster):
@@ -219,7 +219,7 @@ class Crab(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=2.5,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class KoboldScout(Monster):
@@ -229,7 +229,7 @@ class KoboldScout(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=1.0,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class KoboldWorker(Monster):
@@ -239,7 +239,7 @@ class KoboldWorker(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=2.0,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class KoboldHunter(Monster):
@@ -249,7 +249,7 @@ class KoboldHunter(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=1.0,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class KoboldWarrior(Monster):
@@ -259,7 +259,7 @@ class KoboldWarrior(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=1.0,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class KoboldElite(Monster):
@@ -269,7 +269,7 @@ class KoboldElite(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=1.5,
-                         drop_chance=0.4)
+                         drop_chance=0.8)
 
 
 class KoboldChief(Monster):
@@ -289,7 +289,7 @@ class Bear(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=2.0,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class Deer(Monster):
@@ -299,7 +299,7 @@ class Deer(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=1.0,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class Snake(Monster):
@@ -309,7 +309,7 @@ class Snake(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=2.0,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 
 class Boar(Monster):
@@ -319,7 +319,7 @@ class Boar(Monster):
         super().__init__(name, icon, lvl, max_hp, hp, st, df, ac, mp, evasion, crit_rate, crit_dmg, hp_rr, hp_ra,
                          species, xp,
                          respawn_delay=None, attack_cooldown=1.8,
-                         drop_chance=0.2)
+                         drop_chance=0.4)
 
 # Rakarz is Polish for: the one who flays
 

@@ -1,5 +1,5 @@
 from modules.ability_module import Ability
-from modules.effect_module import DamageEffect, DotEffect
+from modules.effect_module import DamageEffect, DotEffect, StunEffect
 
 
 COMMON_WEAPON_ABILITIES = {
@@ -56,6 +56,27 @@ COMMON_WEAPON_ABILITIES = {
                 scaling_stat="evasion",
                 scaling=0.2,
                 dmg_type=["physical"]
+            )
+        ]
+    ),
+    "head rattle": Ability(
+        ability_id="head rattle",
+        name="Head Rattle",
+        tooltip="Hit the target on the head for 7 damage and stunning them for 2 seconds.",
+        cooldown=20,
+        range=1,
+        target_type="enemy",
+        effects=[
+            DamageEffect(
+                base_dmg=7,
+                scaling_stat="st",
+                scaling=0.5,
+                dmg_type=["physical", "blunt"]
+            ),
+            StunEffect(
+                effect_id="stun",
+                name="stun_head_rattle",
+                duration=2
             )
         ]
     )

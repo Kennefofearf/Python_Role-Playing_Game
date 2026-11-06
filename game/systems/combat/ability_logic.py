@@ -1,5 +1,5 @@
 from data.weapons_abilities_data import COMMON_WEAPON_ABILITIES
-from modules.effect_module import DamageEffect, DotEffect
+from modules.effect_module import DamageEffect, DotEffect, StunEffect, ActiveDot
 
 
 def rebuild_abilities(unit):
@@ -40,17 +40,20 @@ def in_range(user, target, ability_data):
 
 def update_active_effects(unit, now, combat_messages=None):
     for effect in unit.active_effects[:]:
-        if now < effect.expires_at:
+        if now >= effect.expires_at:
+            unit.active_effects.remove(effect)
+            continue
+
+        if isinstance(effect, ActiveDot):
             if now >= effect.next_tick:
                 dmg = effect.damage
                 unit.take_dmg(dmg)
+
                 if combat_messages is not None and unit.alive:
                     combat_messages.append([(f"{unit.name} ", 1), (f"{effect.verb} ", 0), (f"{effect.damage} ", 2),
                                             ("damage.", 0)])
-                effect.next_tick += effect.interval
 
-        else:
-            unit.active_effects.remove(effect)
+                    effect.next_tick += effect.interval
 
 
 def use_ability(user, target, ability_id, now, combat_messages=None):
@@ -82,6 +85,9 @@ def use_ability(user, target, ability_id, now, combat_messages=None):
 
             elif isinstance(effect, DotEffect):
                 combat_messages.append([(f"{target.name} ", 1), ("starts bleeding!", 0)])
+
+            elif isinstance(effect, StunEffect):
+                combat_messages.append([(f"{target.name} ", 1), ("is stunned!", 0)])
 
     user.cooldowns[ability_id] = now + ability.cooldown
 

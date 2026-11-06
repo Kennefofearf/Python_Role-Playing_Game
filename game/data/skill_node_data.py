@@ -254,16 +254,6 @@ COMMON_NODES = {
                 unlocks=[],
                 skill_tags=["weapon", "armor"]
             ),
-            # "luck-pricon": Node(
-            #     name="Luck-pricon",
-            #     tooltip="You feel lucky. Chances of finding a green item increase by 2%.",
-            #     points=0,
-            #     max_points=3,
-            #     stats={"max_hp": 0, "st": 0, "df": 0, "mp": 0, "ev": 0, "cr": 0, "cd": 3, "hp_rr": 0, "hp_ra": 0},
-            #     requires=[],
-            #     unlocks=[],
-            #     skill_tags=["weapon", "armor"]
-            # ),
             "bash": Node(
                 name="Bash",
                 tooltip="Bash the target with the hilt of your weapon for base 10 damage.",
@@ -292,6 +282,16 @@ COMMON_NODES = {
                 stats={},
                 requires=[],
                 unlocks=["quick hit"],
+                skill_tags=["weapon"]
+            ),
+            "head_rattle": Node(
+                name="Head Rattle",
+                tooltip="Hit the target on the head for 7 damage and stunning them for 2 seconds.",
+                points=0,
+                max_points=1,
+                stats={},
+                requires=[],
+                unlocks=["head rattle"],
                 skill_tags=["weapon"]
             )
         }

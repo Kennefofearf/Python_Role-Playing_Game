@@ -56,3 +56,31 @@ class DotEffect:
         target.active_effects.append(active_dot)
 
         return active_dot
+
+
+class ActiveStun:
+    def __init__(self, effect_id, name, duration, source, now):
+        self.effect_id = effect_id
+        self.name = name
+        self.expires_at = now + duration
+        self.source = source
+
+
+class StunEffect:
+    def __init__(self, effect_id, name, duration):
+        self.effect_id = effect_id
+        self.name = name
+        self.duration = duration
+
+    def apply(self, user, target, now):
+        active_stun = ActiveStun(
+            effect_id=self.effect_id,
+            name=self.name,
+            duration=self.duration,
+            source=user,
+            now=now
+        )
+
+        target.active_effects.append(active_stun)
+
+        return active_stun

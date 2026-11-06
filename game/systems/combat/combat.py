@@ -1,6 +1,7 @@
 import random
 from systems.items.loot_generator import roll_item_drop
 from modules.item_module import Item
+from modules.effect_module import ActiveStun
 from UI.colors import get_rarity_color
 import time
 
@@ -85,6 +86,12 @@ def enemy_auto_attack_logic(enemies, player, add_log_messages, combat_messages):
 
     for enemy in enemies:
         if not enemy.alive:
+            continue
+
+        is_stunned = any(effect.effect_id == "stun" for effect in enemy.active_effects)
+
+        if is_stunned:
+            enemy.is_attacking = False
             continue
 
         if is_adjacent(enemy.position, player.position):

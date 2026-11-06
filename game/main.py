@@ -22,6 +22,7 @@ from UI.character_sheet import show_character_sheet
 from UI.map_editor import map_editor
 from modules.player_module import Player
 from modules.camera_module import Camera
+from modules.effect_module import ActiveStun
 from systems.player_persistence.save_character import player_to_dict
 from systems.player_persistence.player_to_json import player_dict_to_json
 from systems.maps.map_system import display_xp_map
@@ -123,8 +124,15 @@ def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_off
         if not e.alive:
             continue
 
-        ey, ex = e.enemy_random_movement()
-        ey, ex = e.aggro(player)
+        is_stunned = any(effect.effect_id == "stun" for effect in e.active_effects)
+
+        if is_stunned:
+            ey = 0
+            ex = 0
+        else:
+            ey, ex = e.enemy_random_movement()
+            ey, ex = e.aggro(player)
+
         ney, nex = e.future_position(ey, ex)
         ey, ex = collision_check(game_map, ey, ex, ney, nex)
 

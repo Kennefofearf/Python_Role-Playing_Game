@@ -254,6 +254,16 @@ COMMON_NODES = {
                 unlocks=[],
                 skill_tags=["weapon", "armor"]
             ),
+            "immune system boost": Node(
+                name="Immune System Boost",
+                tooltip="Your body fights against the abnormal more efficiently.",
+                points=0,
+                max_points=3,
+                stats={"max_hp": 8, "st": 0, "df": 0, "mp": 0, "ev": 0, "cr": 0, "cd": 0, "hp_rr": 0, "hp_ra": 0},
+                requires=[],
+                unlocks=[],
+                skill_tags=["weapon", "armor"]
+            ),
             "bash": Node(
                 name="Bash",
                 tooltip="Bash the target with the hilt of your weapon for base 10 damage.",

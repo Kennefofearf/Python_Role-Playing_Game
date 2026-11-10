@@ -264,6 +264,16 @@ COMMON_NODES = {
                 unlocks=[],
                 skill_tags=["weapon", "armor"]
             ),
+            "tactical retreat": Node(
+                name="Tactical Retreat",
+                tooltip="Self preservation is what lets you fight another day.",
+                points=0,
+                max_points=3,
+                stats={"max_hp": 0, "st": 0, "df": 0, "mp": 0, "ev": 1, "cr": 0, "cd": 0, "hp_rr": 0.2, "hp_ra": 0},
+                requires=[],
+                unlocks=[],
+                skill_tags=["weapon", "armor"]
+            ),
             "bash": Node(
                 name="Bash",
                 tooltip="Bash the target with the hilt of your weapon for base 10 damage.",

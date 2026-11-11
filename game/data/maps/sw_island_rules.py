@@ -135,6 +135,9 @@ def get_enemy_spawns():
         (grasslands_random_spawn(), 215, 104, 10, 6),
         (grasslands_random_spawn(), 83, 79, 10, 6),
         (grasslands_random_spawn(), 114, 53, 10, 6),
+        (grasslands_random_spawn(), 39, 64, 10, 6),
+        (grasslands_random_spawn(), 28, 41, 10, 6),
+        (grasslands_random_spawn(), 14, 10, 10, 6),
         # Perimeter of the Ant Colony
         ("ga", 71, 84, 3, 3),
         ("ga", 101, 96, 3, 3),
@@ -149,6 +152,9 @@ def get_enemy_spawns():
         ("ga", 97, 238, 3, 3),
         ("ga", 54, 246, 3, 3),
         ("ga", 55, 271, 3, 3),
+        ("ga", 4, 311, 3, 3),
+        ("ga", 25, 313, 3, 3),
+        ("ga", 43, 309, 3, 3),
         # Ant Elites at entrance
         ("ae", 51, 289, 0, 2),
         ("ae", 51, 292, 0, 2),
@@ -256,6 +262,8 @@ def get_enemy_spawns():
         (ant_colony_random_spawn(), 23, 154, 20, 2),
         ("ae", 20, 143, 0, 2),
         ("ae", 21, 143, 0, 2),
+        # Forest
+
         # Boss Spawns
         # Rakarz
         ("rkz", 287, 311, 800, 10)

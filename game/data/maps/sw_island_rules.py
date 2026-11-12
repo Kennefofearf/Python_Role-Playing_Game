@@ -81,6 +81,25 @@ def ant_colony_random_spawn():
         return "ae"
 
 
+def forest_random_spawn():
+    rand_mon = random.randint(0, 9)
+
+    if rand_mon <= 1:
+        return "ks"
+    elif rand_mon <= 2:
+        return "kh"
+    elif rand_mon <= 3:
+        return "gs"
+    elif rand_mon <= 4:
+        return "be"
+    elif rand_mon <= 5:
+        return "bo"
+    elif rand_mon <= 6:
+        return "s"
+    else:
+        return "d"
+
+
 def get_enemy_spawns():
     return [
 

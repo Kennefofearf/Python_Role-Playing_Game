@@ -100,6 +100,19 @@ def forest_random_spawn():
         return "d"
 
 
+def village_random_spawn():
+    rand_mon = random.randint(0, 6)
+
+    if rand_mon <= 1:
+        return "ks"
+    elif rand_mon <= 2:
+        return "kh"
+    elif rand_mon <= 3:
+        return "kwr"
+    else:
+        return "kwk"
+
+
 def get_enemy_spawns():
     return [
 
@@ -108,6 +121,7 @@ def get_enemy_spawns():
         # Beaches
         ("c", 55, 17, 3, 2),
         ("c", 142, 44, 3, 2),
+
         # Grasslands
         (grasslands_random_spawn(), 90, 60, 10, 6),
         (grasslands_random_spawn(), 62, 83, 10, 6),
@@ -157,6 +171,7 @@ def get_enemy_spawns():
         (grasslands_random_spawn(), 39, 64, 10, 6),
         (grasslands_random_spawn(), 28, 41, 10, 6),
         (grasslands_random_spawn(), 14, 10, 10, 6),
+
         # Perimeter of the Ant Colony
         ("ga", 71, 84, 3, 3),
         ("ga", 101, 96, 3, 3),
@@ -183,6 +198,7 @@ def get_enemy_spawns():
         ("ga", 104, 239, 3, 3),
         ("ga", 49, 310, 3, 3),
         ("ga", 66, 318, 3, 3),
+
         # Ant Colony (Maze)
         (ant_colony_random_spawn(), 40, 290, 20, 2),
         (ant_colony_random_spawn(), 43, 277, 20, 2),
@@ -281,7 +297,75 @@ def get_enemy_spawns():
         (ant_colony_random_spawn(), 23, 154, 20, 2),
         ("ae", 20, 143, 0, 2),
         ("ae", 21, 143, 0, 2),
+
         # Forest
+        (forest_random_spawn(), 13, 346, 10, 6),
+        (forest_random_spawn(), 40, 340, 10, 6),
+        (forest_random_spawn(), 49, 368, 10, 6),
+        (forest_random_spawn(), 15, 366, 10, 6),
+        (forest_random_spawn(), 27, 398, 10, 6),
+        (forest_random_spawn(), 4, 395, 10, 6),
+        (forest_random_spawn(), 48, 378, 10, 6),
+        (forest_random_spawn(), 48, 416, 10, 6),
+        (forest_random_spawn(), 14, 462, 10, 6),
+        (forest_random_spawn(), 22, 433, 10, 6),
+        (forest_random_spawn(), 51, 448, 10, 6),
+        (forest_random_spawn(), 9, 490, 10, 6),
+        (forest_random_spawn(), 39, 489, 10, 6),
+        (forest_random_spawn(), 49, 517, 10, 6),
+        (forest_random_spawn(), 12, 516, 10, 6),
+        (forest_random_spawn(), 55, 545, 10, 6),
+        (forest_random_spawn(), 76, 606, 10, 6),
+        (forest_random_spawn(), 89, 497, 10, 6),
+        (forest_random_spawn(), 107, 463, 10, 6),
+        (forest_random_spawn(), 154, 492, 10, 6),
+        (forest_random_spawn(), 174, 502, 10, 6),
+
+        # Road near village
+        ("ks", 222, 425, 10, 6),
+        ("kwk", 242, 436, 10, 6),
+        ("ks", 227, 364, 10, 6),
+
+        # Village
+        (village_random_spawn(), 236, 543, 10, 6),
+        (village_random_spawn(), 213, 516, 10, 6),
+        (village_random_spawn(), 198, 513, 10, 6),
+        (village_random_spawn(), 190, 523, 10, 6),
+        (village_random_spawn(), 170, 532, 10, 6),
+        (village_random_spawn(), 141, 547, 10, 6),
+        (village_random_spawn(), 108, 586, 10, 6),
+        (village_random_spawn(),105, 555, 10, 6),
+        (village_random_spawn(), 101, 585, 10, 6),
+        (village_random_spawn(), 108, 586, 10, 6),
+        (village_random_spawn(), 131, 570, 10, 6),
+        (village_random_spawn(), 106, 602, 10, 6),
+        (village_random_spawn(), 134, 609, 10, 6),
+        (village_random_spawn(), 122, 625, 10, 6),
+        ("ke", 102, 624, 0, 2),
+        (village_random_spawn(), 110, 629, 10, 6),
+        (village_random_spawn(), 150, 668, 10, 6),
+        (village_random_spawn(), 173, 642, 10, 6),
+        (village_random_spawn(), 190, 659, 15, 6),
+        ("ke", 173, 623, 0, 2),
+        ("ke", 173, 621, 0, 2),
+        (village_random_spawn(), 186, 606, 10, 6),
+        (village_random_spawn(), 224, 641, 10, 6),
+        (village_random_spawn(), 197, 667, 10, 6),
+        ("ke", 196, 645, 0, 18),
+        ("ke", 211, 640, 0, 18),
+        ("ke", 195, 635, 0, 18),
+        ("ke", 204, 632, 0, 2),
+        (village_random_spawn(), 198, 599, 10, 6),
+        (village_random_spawn(), 212, 604, 10, 6),
+        (village_random_spawn(), 209, 590, 10, 6),
+        (village_random_spawn(), 205, 597, 10, 6),
+        (village_random_spawn(), 208, 580, 10, 6),
+        (village_random_spawn(), 212, 562, 10, 6),
+        (village_random_spawn(), 230, 579, 10, 6),
+        ("ke", 192, 559, 0, 18),
+        ("ke", 192, 572, 0, 18),
+
+        #Kobold Chief's Home
 
         # Boss Spawns
         # Rakarz

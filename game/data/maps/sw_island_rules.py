@@ -413,6 +413,12 @@ def get_enemy_spawns():
     ]
 
 
+# def gem_pickup_locations:
+#     return [
+#
+#     ]
+
+
 def collision_check(game_map, dy, dx, next_y, next_x):
     if not (0 <= next_y < len(game_map) and 0 <= next_x < len(game_map[next_y])):
         return 0, 0

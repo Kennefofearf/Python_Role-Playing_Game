@@ -171,6 +171,27 @@ def get_enemy_spawns():
         (grasslands_random_spawn(), 39, 64, 10, 6),
         (grasslands_random_spawn(), 28, 41, 10, 6),
         (grasslands_random_spawn(), 14, 10, 10, 6),
+        (grasslands_random_spawn(), 340, 487, 10, 6),
+        (grasslands_random_spawn(), 292, 528, 10, 6),
+        (grasslands_random_spawn(), 312, 560, 10, 6),
+        (grasslands_random_spawn(), 285, 609, 10, 6),
+        (grasslands_random_spawn(), 323, 636, 10, 6),
+        (grasslands_random_spawn(), 362, 680, 10, 6),
+        (grasslands_random_spawn(), 381, 751, 10, 6),
+        (grasslands_random_spawn(), 388, 825, 10, 6),
+        (grasslands_random_spawn(), 422, 830, 10, 6),
+        (grasslands_random_spawn(), 341, 834, 10, 6),
+        (grasslands_random_spawn(), 283, 861, 10, 6),
+        (grasslands_random_spawn(), 299, 914, 10, 6),
+        (grasslands_random_spawn(), 302, 947, 10, 6),
+        (grasslands_random_spawn(), 309, 1009, 10, 6),
+        (grasslands_random_spawn(), 267, 993, 10, 6),
+        (grasslands_random_spawn(), 245, 819, 10, 6),
+        (grasslands_random_spawn(), 195, 790, 10, 6),
+        (grasslands_random_spawn(),130, 862, 10, 6),
+        (grasslands_random_spawn(), 175, 772, 10, 6),
+        (grasslands_random_spawn(), 104, 756, 10, 6),
+        (grasslands_random_spawn(), 136, 1044, 10, 6),
 
         # Perimeter of the Ant Colony
         ("ga", 71, 84, 3, 3),
@@ -366,10 +387,29 @@ def get_enemy_spawns():
         ("ke", 192, 572, 0, 18),
 
         #Kobold Chief's Home
-
+        # Yard
+        (village_random_spawn(), 165, 626, 10, 6),
+        (village_random_spawn(), 143, 614, 10, 6),
+        ##########################################
+        ("ke", 152, 622, 10, 12),
+        ("ke", 151, 601, 10, 12),
+        ("ke", 166, 610, 10, 12),
+        ("ke", 165, 595, 10, 12),
+        ("ke", 141, 596, 10, 12),
+        ("ke", 143, 578, 10, 12),
+        ("ke", 145, 565, 0, 2),
+        ("ke", 145, 571, 0, 2),
+        ("ke", 152, 578, 10, 12),
+        ("ke", 150, 588, 10, 12),
+        ("ke", 162, 586, 10, 12),
+        ("ke", 165, 580, 10, 12),
+        ("ke", 160, 580, 10, 12),
+        ("ke", 155, 578, 10, 12),
         # Boss Spawns
         # Rakarz
-        ("rkz", 287, 311, 800, 10)
+        ("rkz", 287, 311, 800, 10),
+        # Kobold Chief
+        ("kc", 166, 565, 0, 2)
     ]
 
 

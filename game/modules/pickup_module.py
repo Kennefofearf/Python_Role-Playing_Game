@@ -1,11 +1,13 @@
 class Pickup:
 
-    def __init__(self, icon, hp, st, df):
+    def __init__(self, icon, hp, st, df, hra, ev):
         self.name = "Holy Shard",
         self.icon = icon
-        self.hp = hp,
-        self.st = st,
+        self.hp = hp
+        self.st = st
         self.df = df
+        self.hra = hra
+        self.ev = ev
 
 
 class StrGem(Pickup):
@@ -27,6 +29,20 @@ class HPGem(Pickup):
     def __init__(self, icon="*", hp=5, st=0, df=0):
 
         super().__init__(icon, hp, st, df)
+
+
+class EvaGem(Pickup):
+
+    def __init__(self, icon="*", hp=0, st=0, df=0, hra=0, ev=0.5):
+
+        super().__init__(icon, hp, st, df, hra, ev)
+
+
+class ReGem(Pickup):
+
+    def __init__(self, icon="*", hp=0, st=0, df=0, hra=1):
+
+        super().__init__(icon, hp, st, df, hra)
 
 
 class UltimateGem(Pickup):

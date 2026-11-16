@@ -1,5 +1,6 @@
 import random
 
+from data.stat_pickups import STAT_PICKUPS
 from modules.monster_module import GiantAnt, AntWarrior, AntWorker, AntElite, RoyalScoutAnt, RoyalWarriorAnt, \
     RoyalGuardAnt, AntQueen, GiantSpider, Crab, KoboldScout, KoboldWorker, KoboldHunter, KoboldWarrior, KoboldElite, \
     KoboldChief, Bear, Deer, Snake, Boar, Rakarz
@@ -413,10 +414,37 @@ def get_enemy_spawns():
     ]
 
 
-# def gem_pickup_locations:
-#     return [
-#
-#     ]
+def gem_pickup_locations():
+    return [
+        # STR Gems
+        ("st_gem_01", 15, 135),
+        ("st_gem_02", 289, 562),
+        ("st_gem_03", 204, 630),
+
+        # DEF Gems
+        ("df_gem_01", 102, 634),
+        ("df_gem_02", 29, 510),
+        ("df_gem_03", 35, 211),
+
+        # HP Gems
+        ("hp_gem_01", 5, 301),
+        ("hp_gem_02", 7, 16),
+        ("hp_gem_03", 343, 198),
+        ("hp_gem_04", 71, 32),
+
+        # ReGems
+        ("re_gem_01", 287, 311),
+        ("re_gem_02", 35, 211),
+        ("re_gem_03", 183, 563),
+
+        # Evasion Gems
+        ("ev_gem_01", 182, 571),
+        ("ev_gem_02", 299, 1055),
+        ("ev_gem_03", 48, 144),
+
+        # Ultimate Gems
+        ("ult_gem_01", 167, 564),
+    ]
 
 
 def collision_check(game_map, dy, dx, next_y, next_x):

@@ -26,7 +26,8 @@ from modules.effect_module import ActiveStun
 from systems.player_persistence.save_character import player_to_dict
 from systems.player_persistence.player_to_json import player_dict_to_json
 from systems.maps.map_system import display_xp_map
-from data.maps.sw_island_rules import collision_check, ENEMY_TYPES, get_enemy_spawns
+from data.maps.sw_island_rules import collision_check, ENEMY_TYPES, get_enemy_spawns, gem_pickup_locations
+from data.stat_pickups import STAT_PICKUPS
 from systems.convert_xp_file import load_xp
 
 filename = r"C:\Users\Kenny\PycharmProjects\ASCIIProject\game\maps\SW_Island.xp"
@@ -55,6 +56,11 @@ def reset_enemies():
         enemy.aggro_range = aggro_range
         enemies.append(enemy)
 
+
+def spawn_gems():
+    for gem_name, y, x in gem_pickup_locations():
+        gem = STAT_PICKUPS[gem_name]()
+        gem.position = [y, x]
 
 def mouse_actions(mx, my, bstate, player):
     if bstate & curses.BUTTON1_CLICKED:
@@ -385,6 +391,7 @@ def main(stdscr):
             player_name = create_player_character(stdscr)
             player = Player(player_name)
             reset_enemies()
+            spawn_gems()
             gamestart(stdscr, player)
 
         elif choice == "continue":
@@ -392,6 +399,7 @@ def main(stdscr):
             data = load_character(name)
             player = json_to_player(data)
             reset_enemies()
+            spawn_gems()
             gamestart(stdscr, player)
 
         elif choice == "map_editor":

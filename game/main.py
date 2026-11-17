@@ -1,7 +1,11 @@
 import curses
 import time
 import os
+
+from unicurses import COLOR_CYAN
+
 from UI.title_screen import title_screen
+from modules.pickup_module import StrGem, DefGem, HPGem, EvaGem, ReGem
 from systems.combat.ability_logic import use_ability, update_active_effects
 from curses import wrapper
 from systems.combat.combat import player_auto_attack_logic, enemy_auto_attack_logic
@@ -14,7 +18,7 @@ from UI.character_select_screen import character_select_screen
 from systems.player_persistence.load_charcter import load_character
 from systems.player_persistence.json_to_player import json_to_player
 from systems.player_persistence.get_saved_characters import get_saved_characters
-from UI.colors import init_colors, RED_BG
+from UI.colors import init_colors, RED_BG, RED, BLUE, GREEN, YELLOW, GRAY, MAGENTA
 from UI.combat_log import create_combat_log_windows, draw_log, handle_scroll_log
 from UI.action_bar import create_action_bar, draw_action_bar
 from UI.create_game_windows import create_game_windows
@@ -33,6 +37,7 @@ from systems.convert_xp_file import load_xp
 filename = r"C:\Users\Kenny\PycharmProjects\ASCIIProject\game\maps\SW_Island.xp"
 
 enemies = []
+gems = []
 
 ABILITY_KEYS = {ord("1"): "1", ord("2"): "2", ord("3"): "3", ord("4"): "4"}
 
@@ -61,6 +66,7 @@ def spawn_gems():
     for gem_name, y, x in gem_pickup_locations():
         gem = STAT_PICKUPS[gem_name]()
         gem.position = [y, x]
+        gems.append(gem)
 
 def mouse_actions(mx, my, bstate, player):
     if bstate & curses.BUTTON1_CLICKED:
@@ -70,6 +76,31 @@ def mouse_actions(mx, my, bstate, player):
                 return True, enemy
         return True, None
     return False, None
+
+
+def draw_gems(stdscr, gems, player, camera, start_y, start_x):
+    for gem in gems:
+
+        screen_y, screen_x = camera.world_to_screen(gem.position[0], gem.position[1], start_y, start_x)
+
+        if not (start_y <= screen_y < start_y + camera.height and start_x <= screen_x < start_x + camera.width):
+            continue
+
+        if gem == StrGem:
+            color = RED
+        elif gem == DefGem:
+            color = BLUE
+        elif gem == HPGem:
+            color = GREEN
+        elif gem == EvaGem:
+            color = YELLOW
+        elif gem == ReGem:
+            color = COLOR_CYAN
+        else:
+            color = MAGENTA
+
+
+        stdscr.addch(screen_y, screen_x, gem.icon, curses.color_pair(color))
 
 
 def draw_enemies(stdscr, enemies, selected, prev_positions, camera, start_y, start_x):
@@ -308,6 +339,7 @@ def gamestart(stdscr, player):
 
         player.player_spawn(stdscr, prev_positions, camera, start_y, start_x)
         draw_enemies(stdscr, enemies, selected, prev_positions, camera, start_y, start_x)
+        draw_gems(stdscr, gems, player, camera, start_y, start_x)
 
         refresh_start = time.perf_counter()
         stdscr.refresh()

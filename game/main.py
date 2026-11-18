@@ -2,8 +2,6 @@ import curses
 import time
 import os
 
-from unicurses import COLOR_CYAN
-
 from UI.title_screen import title_screen
 from modules.pickup_module import StrGem, DefGem, HPGem, EvaGem, ReGem
 from systems.combat.ability_logic import use_ability, update_active_effects
@@ -18,7 +16,7 @@ from UI.character_select_screen import character_select_screen
 from systems.player_persistence.load_charcter import load_character
 from systems.player_persistence.json_to_player import json_to_player
 from systems.player_persistence.get_saved_characters import get_saved_characters
-from UI.colors import init_colors, RED_BG, RED, BLUE, GREEN, YELLOW, GRAY, MAGENTA
+from UI.colors import init_colors, RED_BG, RED, BLUE, GREEN, YELLOW, CYAN, MAGENTA
 from UI.combat_log import create_combat_log_windows, draw_log, handle_scroll_log
 from UI.action_bar import create_action_bar, draw_action_bar
 from UI.create_game_windows import create_game_windows
@@ -80,22 +78,24 @@ def mouse_actions(mx, my, bstate, player):
 
 def draw_gems(stdscr, gems, player, camera, start_y, start_x):
     for gem in gems:
+        if gem in player.collected_gems:
+            continue
 
         screen_y, screen_x = camera.world_to_screen(gem.position[0], gem.position[1], start_y, start_x)
 
         if not (start_y <= screen_y < start_y + camera.height and start_x <= screen_x < start_x + camera.width):
             continue
 
-        if gem == StrGem:
+        if gem.st > 0:
             color = RED
-        elif gem == DefGem:
+        elif gem.df > 0:
             color = BLUE
-        elif gem == HPGem:
+        elif gem.hp > 0:
             color = GREEN
-        elif gem == EvaGem:
+        elif gem.ev > 0:
             color = YELLOW
-        elif gem == ReGem:
-            color = COLOR_CYAN
+        elif gem.hra > 0:
+            color = CYAN
         else:
             color = MAGENTA
 
@@ -197,6 +197,18 @@ def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_off
             ey, ex = 0, 0
 
         e.move(ey, ex)
+
+    for gem in gems:
+        if player.position == gem.position:
+            player.base_st += gem.st
+            player.base_df += gem.df
+            player.base_max_hp += gem.hp
+            player.base_evasion += gem.ev
+            player.base_hp_ra += gem.hra
+
+            player.collected_gems.append(gem)
+            print(player.collected_gems)
+
 
     player.move(py, px)
 

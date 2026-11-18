@@ -19,6 +19,7 @@ class Player:
         self.base_hp_rr = 10.0
         self.base_hp_ra = 5
         self.inventory = []
+        self.collected_gems = []
         self.position = [0, 0]
 
         # combat

@@ -9,6 +9,7 @@ UNAVAILABLE = 6
 RED_BG = 7
 GRAY = 8
 BB = 9
+CYAN = 10
 
 
 def init_colors():
@@ -23,6 +24,7 @@ def init_colors():
     curses.init_pair(5, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
     curses.init_pair(7, curses.COLOR_BLACK, curses.COLOR_RED)
     curses.init_pair(9, curses.COLOR_BLACK, curses.COLOR_BLUE)
+    curses.init_pair(10, curses.COLOR_CYAN, curses.COLOR_BLACK)
     curses.init_pair(20, 20, curses.COLOR_BLACK)
 
     curses.init_pair(UNAVAILABLE, GRAY, curses.COLOR_BLACK)

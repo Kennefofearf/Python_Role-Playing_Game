@@ -60,11 +60,14 @@ def reset_enemies():
         enemies.append(enemy)
 
 
-def spawn_gems():
+def spawn_gems(player):
     for gem_name, y, x in gem_pickup_locations():
         gem = STAT_PICKUPS[gem_name]()
-        gem.position = [y, x]
-        gems.append(gem)
+        if gem not in player.collected_gems:
+            gem.position = [y, x]
+            gems.append(gem)
+        else:
+            continue
 
 def mouse_actions(mx, my, bstate, player):
     if bstate & curses.BUTTON1_CLICKED:
@@ -78,8 +81,6 @@ def mouse_actions(mx, my, bstate, player):
 
 def draw_gems(stdscr, gems, player, camera, start_y, start_x):
     for gem in gems:
-        if gem in player.collected_gems:
-            continue
 
         screen_y, screen_x = camera.world_to_screen(gem.position[0], gem.position[1], start_y, start_x)
 
@@ -207,7 +208,7 @@ def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_off
             player.base_hp_ra += gem.hra
 
             player.collected_gems.append(gem)
-            print(player.collected_gems)
+            gems.remove(gem)
 
 
     player.move(py, px)
@@ -435,7 +436,7 @@ def main(stdscr):
             player_name = create_player_character(stdscr)
             player = Player(player_name)
             reset_enemies()
-            spawn_gems()
+            spawn_gems(player)
             gamestart(stdscr, player)
 
         elif choice == "continue":
@@ -443,7 +444,7 @@ def main(stdscr):
             data = load_character(name)
             player = json_to_player(data)
             reset_enemies()
-            spawn_gems()
+            spawn_gems(player)
             gamestart(stdscr, player)
 
         elif choice == "map_editor":

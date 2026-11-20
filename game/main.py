@@ -13,7 +13,7 @@ from UI.player_window import \
     create_player_window, draw_player_window, create_gear_progress_window, draw_gear_progress_window
 from systems.player_persistence.character_creator import create_player_character
 from UI.character_select_screen import character_select_screen
-from systems.player_persistence.load_charcter import load_character
+from systems.player_persistence.load_character import load_character
 from systems.player_persistence.json_to_player import json_to_player
 from systems.player_persistence.get_saved_characters import get_saved_characters
 from UI.colors import init_colors, RED_BG, RED, BLUE, GREEN, YELLOW, CYAN, MAGENTA
@@ -447,7 +447,6 @@ def main(stdscr):
             reset_enemies()
             spawn_gems(player)
             gamestart(stdscr, player)
-            print(player.collected_gems)
 
         elif choice == "map_editor":
             game_map = load_xp(filename)

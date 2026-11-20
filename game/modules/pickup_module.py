@@ -1,7 +1,7 @@
 class Pickup:
 
     def __init__(self, icon, hp, st, df, hra, ev):
-        self.name = "Holy Shard",
+        self.name = None
         self.icon = icon
         self.hp = hp
         self.st = st

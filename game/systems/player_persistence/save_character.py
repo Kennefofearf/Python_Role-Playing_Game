@@ -1,4 +1,5 @@
 from systems.item_persistence.save_item import item_to_dict
+from systems.item_persistence.save_collected_gems import gem_to_dict
 
 
 def player_to_dict(player):
@@ -20,8 +21,14 @@ def player_to_dict(player):
         "lvl": player.lvl,
         "position": player.position,
         "inventory": [],
+        "collected_gems": [],
         "ability_slots": player.ability_slots
     }
+
+    if player.collected_gems is not None:
+        saved_char["collected_gems"] = player.collected_gems
+    else:
+        saved_char["collected_gems"] = []
 
     for item in player.inventory:
         item_data = item_to_dict(item)

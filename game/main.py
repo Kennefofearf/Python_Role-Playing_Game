@@ -63,7 +63,8 @@ def reset_enemies():
 def spawn_gems(player):
     for gem_name, y, x in gem_pickup_locations():
         gem = STAT_PICKUPS[gem_name]()
-        if gem not in player.collected_gems:
+        gem.name = gem_name
+        if gem.name not in player.collected_gems:
             gem.position = [y, x]
             gems.append(gem)
         else:
@@ -207,7 +208,7 @@ def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_off
             player.base_evasion += gem.ev
             player.base_hp_ra += gem.hra
 
-            player.collected_gems.append(gem)
+            player.collected_gems.append(gem.name)
             gems.remove(gem)
 
 
@@ -446,6 +447,7 @@ def main(stdscr):
             reset_enemies()
             spawn_gems(player)
             gamestart(stdscr, player)
+            print(player.collected_gems)
 
         elif choice == "map_editor":
             game_map = load_xp(filename)

@@ -84,3 +84,10 @@ class StunEffect:
         target.active_effects.append(active_stun)
 
         return active_stun
+
+
+class MovementEffect:
+    def __init__(self, effect_id, name, verb):
+        self.effect_id = effect_id
+        self.name = name
+        self.verb = verb

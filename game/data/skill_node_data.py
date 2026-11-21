@@ -313,6 +313,16 @@ COMMON_NODES = {
                 requires=[],
                 unlocks=["head rattle"],
                 skill_tags=["weapon"]
+            ),
+            "vault": Node(
+                name="Vault",
+                tooltip="Leap over the target, landing on their opposite side.",
+                points=0,
+                max_points=1,
+                stats={},
+                requires=[],
+                unlocks=["vault"],
+                skill_tags=["weapon, armor"]
             )
         }
 

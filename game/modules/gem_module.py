@@ -1,4 +1,4 @@
-class Pickup:
+class Gem:
 
     def __init__(self, name, icon, hp, st, df, hra, ev):
         self.name = name
@@ -13,14 +13,14 @@ class Pickup:
         add_log_messages(combat_messages, [(f"Picked up a ", 0), (f"{self.name}", 10),(f"!", 0),
                                            (f" Stats permanently increased!", 0)])
 
-class StrGem(Pickup):
+class StrGem(Gem):
 
     def __init__(self, name="Strength Gem", icon="*", hp=0, st=1, df=0, hra=0, ev=0):
 
         super().__init__(name, icon, hp, st, df, hra, ev)
 
 
-class DefGem(Pickup):
+class DefGem(Gem):
 
     def __init__(self, name="Defense Gem", icon="*", hp=0, st=0, df=1, hra=0, ev=0):
 
@@ -29,28 +29,28 @@ class DefGem(Pickup):
 
 
 
-class HPGem(Pickup):
+class HPGem(Gem):
 
     def __init__(self, name="HP Gem", icon="*", hp=5, st=0, df=0, hra=0, ev=0):
 
         super().__init__(name, icon, hp, st, df, hra, ev)
 
 
-class EvaGem(Pickup):
+class EvaGem(Gem):
 
     def __init__(self, name="Evasion Gem", icon="*", hp=0, st=0, df=0, hra=0, ev=0.5):
 
         super().__init__(name, icon, hp, st, df, hra, ev)
 
 
-class ReGem(Pickup):
+class ReGem(Gem):
 
     def __init__(self, name="Regen Gem", icon="*", hp=0, st=0, df=0, hra=1, ev=0):
 
         super().__init__(name, icon, hp, st, df, hra, ev)
 
 
-class UltimateGem(Pickup):
+class UltimateGem(Gem):
 
     def __init__(self, name="Ultimate Gem", icon="*", hp=25, st=5, df=5, hra=0, ev=0):
 

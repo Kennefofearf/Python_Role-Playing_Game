@@ -3,7 +3,7 @@ import time
 import os
 
 from UI.title_screen import title_screen
-from modules.pickup_module import StrGem, DefGem, HPGem, EvaGem, ReGem
+from modules.gem_module import StrGem, DefGem, HPGem, EvaGem, ReGem
 from systems.combat.ability_logic import use_ability, update_active_effects
 from curses import wrapper
 from systems.combat.combat import player_auto_attack_logic, enemy_auto_attack_logic

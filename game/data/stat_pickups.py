@@ -1,4 +1,4 @@
-from modules.pickup_module import StrGem, DefGem, HPGem, ReGem, EvaGem, UltimateGem
+from modules.gem_module import StrGem, DefGem, HPGem, ReGem, EvaGem, UltimateGem
 
 STAT_PICKUPS = {
     # Str Gems

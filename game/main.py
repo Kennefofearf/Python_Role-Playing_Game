@@ -63,8 +63,8 @@ def reset_enemies():
 def spawn_gems(player):
     for gem_name, y, x in gem_pickup_locations():
         gem = STAT_PICKUPS[gem_name]()
-        gem.name = gem_name
-        if gem.name not in player.collected_gems:
+        gem.id = gem_name
+        if gem.id not in player.collected_gems:
             gem.position = [y, x]
             gems.append(gem)
         else:
@@ -208,7 +208,8 @@ def world_event_logic(player, py, px, stdscr, combat_messages, inner, scroll_off
             player.base_evasion += gem.ev
             player.base_hp_ra += gem.hra
 
-            player.collected_gems.append(gem.name)
+            player.collected_gems.append(gem.id)
+            gem.gem_log_message(add_log_messages, combat_messages)
             gems.remove(gem)
 
 

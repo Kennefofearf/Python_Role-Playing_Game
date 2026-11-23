@@ -1,6 +1,7 @@
-from modules.ability_module import Ability
-from modules.effect_module import DamageEffect, DotEffect, StunEffect
+from shutil import move
 
+from modules.ability_module import Ability
+from modules.effect_module import DamageEffect, DotEffect, StunEffect, MovementEffect
 
 COMMON_WEAPON_ABILITIES = {
     "gash": Ability(
@@ -79,5 +80,21 @@ COMMON_WEAPON_ABILITIES = {
                 duration=2
             )
         ]
-    )
+    ),
+    "vault": Ability(
+        ability_id="vault",
+        name="Vault",
+        tooltip="Leap over the target, landing on their opposite side.",
+        cooldown=30,
+        range=1,
+        target_type="enemy",
+        effects=[
+            MovementEffect(
+                effect_id="movement",
+                name="movement_vault",
+                verb="vaults over ",
+                moves=2
+            )
+        ]
+    ),
 }

@@ -1,5 +1,5 @@
 from data.weapons_abilities_data import COMMON_WEAPON_ABILITIES
-from modules.effect_module import DamageEffect, DotEffect, StunEffect, ActiveDot
+from modules.effect_module import DamageEffect, DotEffect, StunEffect, ActiveDot, MovementEffect
 
 
 def rebuild_abilities(unit):
@@ -36,6 +36,12 @@ def in_range(user, target, ability_data):
     ty, tx = target.position
     dist = abs(uy - ty) + abs(ux - tx)
     return dist <= ability_data.range
+
+
+# def movement_action(user, target, abililty):
+#     uy, ux = user.position
+#     ty, tx = target.position
+
 
 
 def update_active_effects(unit, now, combat_messages=None):
@@ -82,6 +88,9 @@ def use_ability(user, target, ability_id, now, combat_messages=None):
             if isinstance(effect, DamageEffect):
                 combat_messages.append([(f"{user.name} ", 2), ("uses ", 0), (f"{ability.name} ", 2), ("on ", 0),
                                         (f"{target.name} ", 1), ("for ", 0), (f"{result} ", 2), ("damage!", 0)])
+
+            elif isinstance(effect, MovementEffect):
+                combat_messages.append([(f"{user.name} ", 1), ("vaults over ", 0), (f"{target.name} ", 1)])
 
             elif isinstance(effect, DotEffect):
                 combat_messages.append([(f"{target.name} ", 1), ("starts bleeding!", 0)])

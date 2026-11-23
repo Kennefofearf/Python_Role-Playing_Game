@@ -87,7 +87,8 @@ class StunEffect:
 
 
 class MovementEffect:
-    def __init__(self, effect_id, name, verb):
+    def __init__(self, effect_id, name, verb, moves):
         self.effect_id = effect_id
         self.name = name
         self.verb = verb
+        self.moves = moves

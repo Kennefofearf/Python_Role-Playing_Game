@@ -61,6 +61,8 @@ def reset_enemies():
 
 
 def spawn_gems(player):
+    gems.clear()
+
     for gem_name, y, x in gem_pickup_locations():
         gem = STAT_PICKUPS[gem_name]()
         gem.id = gem_name
@@ -448,6 +450,7 @@ def main(stdscr):
             reset_enemies()
             spawn_gems(player)
             gamestart(stdscr, player)
+            print(player.collected_gems)
 
         elif choice == "map_editor":
             game_map = load_xp(filename)

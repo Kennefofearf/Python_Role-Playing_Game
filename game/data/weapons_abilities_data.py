@@ -93,8 +93,7 @@ COMMON_WEAPON_ABILITIES = {
                 effect_id="movement",
                 name="movement_vault",
                 verb="vaults over ",
-                uy=0,
-                ux=0
+                yx= (0, 0)
             )
         ]
     ),

@@ -450,7 +450,6 @@ def main(stdscr):
             reset_enemies()
             spawn_gems(player)
             gamestart(stdscr, player)
-            print(player.collected_gems)
 
         elif choice == "map_editor":
             game_map = load_xp(filename)

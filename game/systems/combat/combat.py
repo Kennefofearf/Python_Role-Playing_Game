@@ -1,7 +1,7 @@
 import random
+
 from systems.items.loot_generator import roll_item_drop
 from modules.item_module import Item
-from modules.effect_module import ActiveStun
 from UI.colors import get_rarity_color
 import time
 

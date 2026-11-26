@@ -87,8 +87,34 @@ class StunEffect:
 
 
 class MovementEffect:
-    def __init__(self, effect_id, name, verb, moves):
+    def __init__(self, effect_id, name, verb, uy, ux):
         self.effect_id = effect_id
         self.name = name
         self.verb = verb
-        self.moves = moves
+        self.uy = uy
+        self.ux = ux
+
+    def movement_logic(self, user, target):
+        uy, ux = user.position
+        ty, tx = target.position
+
+        if self.name == "movement_vault":
+            if uy == ty:
+                ux += 2
+            elif ux == tx:
+                uy += 2
+
+        return uy, ux
+
+    def apply(self, user, target, now):
+        movement_action = MovementEffect(
+            effect_id=self.effect_id,
+            name=self.name,
+            verb=self.verb,
+            uy=self.movement_logic(user, target),
+            ux=self.movement_logic(user, target)
+        )
+
+        # user.position += [movement_action.uy, movement_action.ux]
+
+        return movement_action

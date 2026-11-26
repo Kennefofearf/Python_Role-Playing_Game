@@ -1,5 +1,4 @@
 from data.weapons_abilities_data import COMMON_WEAPON_ABILITIES
-from systems.combat.combat import is_adjacent
 from modules.effect_module import DamageEffect, DotEffect, StunEffect, ActiveDot, MovementEffect
 
 
@@ -39,19 +38,10 @@ def in_range(user, target, ability_data):
     return dist <= ability_data.range
 
 
-def movement_action(user, target, abililty):
-    uy, ux = user.position
-    ty, tx = target.position
-    if is_adjacent(user.position, target.position):
-        if uy == ty:
-            ux += 2
-        elif ux == tx:
-            uy += 2
-
-
-
 def update_active_effects(unit, now, combat_messages=None):
     for effect in unit.active_effects[:]:
+        if isinstance(effect, MovementEffect):
+            continue
         if now >= effect.expires_at:
             unit.active_effects.remove(effect)
             continue
